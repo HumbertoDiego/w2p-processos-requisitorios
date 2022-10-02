@@ -24,14 +24,41 @@ services:
     networks:
       - overlay
     ports:
-          - 5432:5432
+      - 5432:5432
     volumes:
-          - post-data:/var/lib/postgresql/data
+      - ./docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
+      - post-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: secret
       POSTGRES_MULTIPLE_DATABASES: requisicoes,authdb
     restart: always
+  ldap:
+    image: osixia/openldap:1.5.0
+    container_name: ldap
+    networks:
+      - overlay
+    ports:
+      - 389:389
+      - 636:636
+    volumes:
+      - ldap-data:/var/lib/ldap
+      - ldap-conf:/etc/ldap/slapd.d
+    environment:
+      LDAP_DOMAIN: eb.mil.br
+      LDAP_ADMIN_PASSWORD: secret
+    restart: always
+  phpldapadmin:
+    image: osixia/phpldapadmin:0.9.0
+    container_name: phpldapadmin
+    networks:
+      - overlay
+    ports:
+      - 6443:443
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: ldap
 volumes:
   post-data:
+  ldap-data:
+  ldap-conf:
 networks:
   overlay:

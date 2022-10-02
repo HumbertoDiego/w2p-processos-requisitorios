@@ -23,4 +23,13 @@ docker run -dp 443:443 --name processos-requisitorios prs
 docker-compose exec processos-requisitorios bash
 docker-compose exec prs tail -f /var/log/apache2/error.log
 ```
+
+## Teste
+
+```
+docker-compose exec ldap bash
+root@c234c8a25db8:/#
+  
+```
+
 ## Fluxo de tabalho
