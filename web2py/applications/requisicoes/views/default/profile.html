@@ -1,0 +1,10 @@
+{{extend 'layout2.html'}}
+{{block styles}}
+<style>td {border: unset;padding-left: 10px;}th{padding-left: 10px;}</style>
+{{end}}
+{{block content}}
+{{=BEAUTIFY(perfil)}}
+{{end}}
+{{block scripts}}
+<script>hide()</script>
+{{end}}

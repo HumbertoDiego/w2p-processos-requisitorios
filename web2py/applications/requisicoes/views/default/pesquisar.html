@@ -1,0 +1,47 @@
+{{extend 'layout2.html'}}
+{{block styles}}
+<style>td {border: unset;padding-left: 10px;}th{padding-left: 10px;}</style>
+{{end}}
+{{block content}}
+<div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-8">
+        <h1>Resultado da pesquisa: {{=q}}</h1> Cerca de {{=len(rows)}} resultados</br>
+        {{import json}}
+        {{for row in rows:}}
+            {{show=dict()}}
+            {{try:}}
+                {{dados = json.loads(row['dados'])}}
+            {{except:}}
+                {{dados = json.loads('{}')}}
+            {{pass}}
+            {{modo=dados["modo"] if "modo" in dados else "gerente"}}
+            {{lista_desejados=["data","modo","remetente","beneficios-justificativa"]}}
+            {{for k,v in dados.items():}}
+                {{if k in lista_desejados:}}
+                    {{show[k.upper().replace("_"," ")] = dados.pop(k)}}
+                {{elif "ass_" in k and "edited" not in k and modo in k:}}
+                    {{show[k.upper().replace("_"," ")] = dados.pop(k)}}
+                {{pass}}
+            {{pass}}
+            {{ano,nr,secao=row['secao_ano_nr'].split("_")[-2],row['secao_ano_nr'].split("_")[-1],row['secao_ano_nr'].split("_")[0]}}
+            {{valido="Válido" if row['valido']==True else "Inválido" if row['valido']==False else "Em trabalho"}}
+            <li>
+                <p>
+                    <b>{{=A("Requisição Nr "+nr+" da "+secao+" de "+ano,_href=URL('index',vars=dict(ano=ano,nr=nr,secao=secao)))}}</b>
+                    <span class="text-muted"> • {{=row['resumo']}} •  {{=valido}}</span>
+                    <i>{{=BEAUTIFY(show)}}</i>
+                </p>
+            </li>
+        {{pass}}
+    </div>
+</div>
+
+{{end}}
+{{block scripts}}
+<script>
+    hide();
+    if("{{=msg}}"){console.warn("{{=msg}}");}
+</script>
+{{end}}

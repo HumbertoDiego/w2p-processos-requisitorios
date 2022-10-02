@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROCESSOS REQUISITÓRIOS</title>
+    <meta name="application-name" content="{{=request.application}}">
+    <link href="{{=URL('static','bootstrap-5.1.1-dist/css/bootstrap.min.css')}}" rel="stylesheet"/>
+    <link href="{{=URL('static','css/bootstrap-datepicker.min.css')}}" rel="stylesheet"/>
+    <script src="{{=URL('static','js/jquery.js')}}"></script>
+    <script src="{{=URL('static','bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js')}}"></script>
+    <link href="{{=URL('static','css/bootstrap-popover-x.css')}}" media="all" rel="stylesheet" type="text/css" />
+    <script src="{{=URL('static','js/bootstrap-popover-x.js')}}" type="text/javascript"></script>
+    <script src="{{=URL('static','js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="{{=URL('static','images/favicon.ico')}}"/>
+    <link rel="stylesheet" href="{{=URL('static','css/all.css')}}"/>
+    <link href="{{=URL('static','bootstrap-fileinput-5.2.6/css/fileinput.min.css')}}" media="all" rel="stylesheet" type="text/css" />
+    <script src="{{=URL('static','bootstrap-fileinput-5.2.6/js/plugins/piexif.min.js')}}" type="text/javascript"></script>
+    <script src="{{=URL('static','bootstrap-fileinput-5.2.6/js/fileinput.min.js')}}"></script>
+    <script src="{{=URL('static','bootstrap-fileinput-5.2.6/themes/fas/theme.min.js')}}"></script>
+<style id="custom">
+.bg-transparente {
+    border:1px solid
+}
+.tab {
+        display: inline-block;
+        margin-left: 40px;
+    }
+.tab-pane{
+    margin-bottom: 20px;
+}
+.var{
+    background-color: yellow;
+    transition: background-color 2s, color 4s;
+}
+.var.edited{
+    background-color: #0ed277;
+}
+.var:hover{
+    cursor: pointer
+}
+.var.edited.encerrado {
+    background-color: unset;
+}
+.var.encerrado {
+    background-color: unset;
+    cursor: unset
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+main {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 100%;
+  height: -webkit-fill-available;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.b-example-divider {
+  position: fixed;
+  left: 300px;
+  flex-shrink: 0;
+  width: 25px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    transition: 1s;
+}
+
+.bi {
+  vertical-align: -.125em;
+  pointer-events: none;
+  fill: currentColor;
+}
+
+.dropdown-toggle { outline: 0; }
+
+.nav-flush .nav-link {
+  border-radius: 0;
+}
+
+.btn-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: .25rem .5rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, .65);
+  background-color: transparent;
+  border: 0;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(0, 0, 0, .85);
+  background-color: #d2f4ea;
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform .35s ease;
+  transform-origin: .5em 50%;
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(0, 0, 0, .85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  display: inline-flex;
+  padding: .1875rem .5rem;
+  margin-top: .125rem;
+  margin-left: 1.25rem;
+  text-decoration: none;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: #d2f4ea;
+}
+
+.scrollarea {
+  overflow-y: auto;
+}
+
+.fw-semibold { font-weight: 600; }
+.lh-tight { line-height: 1.25; }
+
+.conteudo {
+     position:absolute;
+     left: 0px;
+     margin-left: 325px;
+     margin-top:20px;
+     width: calc(97% - 325px);
+     top:0;
+     bottom:0;
+     padding: 48px 0 0 10px;
+     transition: 1s;
+ }
+
+.pc.opened {
+    -webkit-animation: fadein 100ms;
+    animation: fadein 100ms;
+}
+.pc.opened {
+    display: block;
+}
+.pc {
+    transform: scale(1);
+    border: 0;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: block;
+    transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+}
+
+.pf {
+    margin: 13px auto;
+    box-shadow: 1px 1px 3px 1px #333;
+    border-collapse: separate;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border: 0;
+    min-height: 595px;
+    width: 100%;
+    font-family: "Times New Roman", Times, serif;
+}
+td{
+    border-top: 1px solid #000000;
+    border-bottom: 1px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+}
+td p{
+    font-size: 8pt;
+    display: inline;
+}
+td.noborder {
+    display: grid;
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    align-content: end;
+    }
+td.semborda {
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    }
+td p input{
+    display: block;
+    padding: 0px 0px 0px 2px;
+    margin: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    }
+
+td p input:hover {
+    background-color: #bed9a2;
+}
+
+.myinput{
+    border: 1px solid;
+    border-color: darkgray;
+    width: 100%;
+}
+
+div span i{
+    line-height: 1.42857143;
+}
+
+.pager li > a.mid{
+    color: #fff;
+    background-color: #337ab7;
+}
+.pager li > a.danger{
+    color: #fff;
+    background-color: #d9534f;
+}
+#wrap {
+    margin-top: 30px;
+}
+
+/* Alertas*/
+.w2p_flash,.w2p_flash2,.w2p_flash21,.w2p_flash3,.w2p_flash4,.w2p_flash5 {
+    position: fixed;
+    width: 25%;
+    top: 10px;
+    right: 1%;
+    cursor: default;
+    text-align: center;
+    z-index: 5620;
+}
+
+.marcaDagua {
+    font-family: arial;
+    color: #FF0000;
+    font-size: 4em;
+    right: 1em;
+    opacity: 0.2;
+    position: fixed;
+    text-align: center;
+    top: 3.3em;
+    transform: rotate(-35deg);
+    visibility: visible;
+    border: 1px;
+    border-style: dashed;
+    border-width: thick;
+}
+/*  Reedição do bootstrap 3    */
+.popover{
+    max-width:500px;
+}
+
+.help-block{
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.0;
+    color: red;
+    text-align: left;
+    display: none;
+}
+._container {
+    display: grid;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+._container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+._container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 21px;
+    width: 21px;
+    background-color: #eee;
+    border-radius: 50%;
+    margin-top: 4px;
+}
+._container input:checked ~ .checkmark::after {
+    display: block;
+}
+._container .checkmark::after {
+    top: 7px;
+    left: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+}
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.nav-item .nav-link.active{
+    color: #fff;
+    background-color: #0d6efd;
+}
+.sidebar{
+    width: 300px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 48px 0 0;
+    transition: 1s;
+}
+.max60chars{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+textarea.popover-textarea {
+   border: 0px;
+   margin: 0px;
+   width: 100%;
+   height: 100%;
+   padding: 0px;
+   box-shadow: none;
+}
+
+.popover-footer {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  background-color: #F7F7F7;
+  border-bottom: 1px solid #EBEBEB;
+  border-radius: 5px 5px 0 0;
+}
+.sidebar a.cinza, small.cinza{
+ background-color: lightgrey;
+}
+.sidebar a.azul, small.azul{
+ background-color: lightblue;
+}
+.sidebar a.amarelo, small.amarelo{
+ background-color: lightyellow;
+}
+.sidebar a.verde, small.verde{
+ background-color: lightgreen;
+}
+
+@media print {
+    .pagebreak {
+        clear: both;
+        page-break-after: always;
+    }
+
+    @page {
+        margin-bottom: 1cm;
+        margin-top: 1cm;
+    }
+}
+.header{
+    justify-content: end;
+    display: grid;
+    font-size: small;
+}
+select[multiple*="multiple"]    {
+    height: 200px;
+    }
+</style>
+{{block styles}}
+{{end}}
+</head>
+<body id="main">
+    <div class="alert alert-success alert-dismissible w2p_flash" role="alert" style="display: none;">
+      <strong>Selva!</strong> Documento salvo com sucesso!
+    </div>
+    <div class="alert alert-warning alert-dismissible w2p_flash2" role="alert" style="display: none;">
+      <span><i class="fa fa-spinner fa-spin"></i></span>
+    </div>
+    <div class="alert alert-warning alert-dismissible w2p_flash21" role="alert" style="display: none;">
+      <span>{{=response.flash or ''}}</span>
+    </div>
+    <div class="alert alert-danger alert-dismissible w2p_flash3" role="alert" style="display: none;">
+      <strong>Não autorizado!</strong> Entre em contato com a SALC para configurar sua conta como <span id="fiscal_or_od">Ordenador de Despesas</span>.
+    </div>
+    <div class="alert alert-success alert-dismissible w2p_flash4" role="alert" style="display: none;">
+      <div class="progress" style="margin-bottom: 0px;">
+          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+            Encerrando...
+          </div>
+        </div>
+    </div>
+    <div class="alert alert-danger alert-dismissible w2p_flash5" role="alert" style="display: none;">
+      <strong>Erro!</strong> Documento não pode ser salvo, pois você não possui uma conta ativa nesta seção!
+    </div>
+<nav class="navbar navbar-dark navbar-expand-md fixed-top bg-dark flex-md-nowrap p-0 shadow" style="display: -webkit-inline-box;">
+    <li class="nav navbar-nav" >
+        <a class="nav-link" onclick="hide();return false" href="#">
+          <span class="navbar-toggler-icon"></span>
+        </a>
+    </li>
+    <li class="nav navbar-nav" >
+        <a href="{{=URL('default','index')}}" style="text-decoration: none;"><h5 class="nav-link" style="color:white;">PROCESSOS REQUISITÓRIOS</h5></a>
+        <b style="color: antiquewhite;font-size: small;cursor: help;" data-bs-toggle="modal" data-bs-target="#myModal7">1.5.5</b>
+    </li>
+    {{block lista_acoes}}
+    {{end}}
+    <li class="nav navbar-nav" style="margin-left:auto">
+        <form action="{{=URL('default','pesquisar')}}" class="input-group rounded">
+            <input type="search" placeholder="Pesquisar" name="q" aria-describedby="pesquisar-addon"  style="background-color: rgba(255,255,255,0);border: unset;color: white;border-bottom: 1px solid;"/>
+            <button type="submit" class="btn btn-outline-dark" style="color: white;">
+               <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </li>
+    {{if 'auth' in globals():}}
+    <li class="nav navbar-nav" >
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{if auth.user:}}
+                {{=auth.user.username}}
+            {{else:}}
+                LOGIN SPED
+            {{pass}}
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+            {{if auth.user:}}
+            <li><a class="dropdown-item" href="{{=URL('default','user/profile')}}">Perfil</a></li>
+            {{if is_salc or is_admin:}}
+                <li><a class="dropdown-item" href="{{=URL('conf')}}">Configurações</a></li>
+                <li><a class="dropdown-item" href="{{=URL('pedencias',args=['salc'])}}">Pendênicas da SALC</a></li>
+                <li><a class="dropdown-item" href="{{=URL('pedencias',args=['fiscal'])}}">Pendênicas do Fiscal</a></li>
+                <li><a class="dropdown-item" href="{{=URL('pedencias',args=['od'])}}">Pendênicas do OD</a></li>
+            {{elif is_fiscal:}}
+                <li><a class="dropdown-item" href="{{=URL('pedencias',args=['fiscal'])}}">Pendênicas do Fiscal</a></li>
+            {{elif is_od:}}
+                <li><a class="dropdown-item" href="{{=URL('pedencias',args=['od'])}}">Pendênicas do OD</a></li>
+            {{pass}}
+            <li><a class="dropdown-item" href="{{=URL('default','user/logout',vars=request.get_vars)}}">Logout</a></li>
+            {{else:}}
+            <li>
+                <form class="p-4" action="#" class="form-horizontal" enctype="multipart/form-data" method="post">
+                    <div class="form-group mb-3" id="auth_user_username__row">
+                        <label for="auth_user_username" class="form-label" id="auth_user_username__label">Usuário</label>
+                        <input type="text" class="form-control" id="auth_user_email" placeholder="Usuário Sped" style="width:auto" name="username" value="">
+                        <span class="help-block"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="auth_user_password" id="auth_user_password__label">Senha</label>
+                        <input type="password" class="form-control" id="auth_user_password" name="password">
+                        <span class="help-block"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    {{=form_user.custom.end}}
+                </form>
+            </li>
+            {{pass}}
+        </ul>
+    </li>
+    {{pass}}
+</nav>
+<main >
+  <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white sidebar">
+      {{block sidebar}}
+      {{end}}
+  </div>
+  <div class="b-example-divider"></div>
+    <div class="conteudo">
+
+        {{block content}}
+        {{end}}
+    </div><!--  .conteudo -->
+</main>
+
+<div id="myModal7" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4><b>Changelog: </b></h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+           <div>
+              <h4> [1.5.5] - 2022-08-03</h4>
+              <span>Correção de BUGs.</span>
+              <h5>Corrigido</h5>
+              <ul>
+                  <li>Corrigido os popups de edição que ainda apareciam para usuários sem a devida permissão, a partir das segundas linhas criadas no pedido e no mapa comparativo.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.5.4] - 2022-07-25</h4>
+              <span>Adição de ajudas em partes dos documentos.</span>
+              <h5>Adicionado</h5>
+              <ul>
+                  <li>Ajuda nos anexos da adesão.</li>
+              </ul>
+               <h5>Modificado</h5>
+              <ul>
+                  <li>Cor do documento em execução de amarelo para transparente.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.4.4] - 2022-05-25</h4>
+              <span>Adição de ajudas em partes dos documentos.</span>
+              <h5>Adicionado</h5>
+              <ul>
+                  <li>Ajuda na escolha do assunto.</li>
+                  <li>Ajuda na escolha do objetivo estratégico.</li>
+                  <li>link para o comprasnet relacionado a UASG informada no pedido.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.3.4] - 2022-04-11</h4>
+              <span>Substituição de variáveis.</span>
+              <h5>Modificado</h5>
+              <ul>
+                  <li>Substituídas as variáveis de dupla escolha 'aquisicao/contratacao' e 'material/servico' por 'assunto' com 5 escolhas.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.2.4] - 2022-04-04</h4>
+              <span>Correção de BUGs de codificação de caracteres UTF-8.</span>
+              <h5>Corrigido</h5>
+              <ul>
+                  <li>Criada uma proteção para leitura correta dos dados nos casos em que caracteres UTF-8, através de outros clientes PostgreSQL, eram inseridos na forma \xAB em vez de \u00AB.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.2.3] - 2022-03-22</h4>
+              <span>Correção de BUGs de codificação de caracteres UTF-8 e adição de OD Substituto.</span>
+              <h5>Adicionado</h5>
+              <ul>
+                  <li>Configuração pela SALC do OD Substituto.</li>
+              </ul>
+              <h5>Modificado</h5>
+              <ul>
+                  <li>Página de configuração.</li>
+                  <li>Template .odt dos modos Gerente e Carona.</li>
+              </ul>
+              <h5>Corrigido</h5>
+              <ul>
+                  <li>Variáveis strings em ASCII com possibilidade de caracters UTF-8.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.1.2] - 2022-03-08</h4>
+              <span>Correção na interação entre o backend e frontend.</span>
+              <h5>Adicionado</h5>
+              <ul>
+                  <li>Proteção contra variáveis registradas com caracteres de \escape inválidos.</li>
+                  <li>Log de avisos no frontend exibe os erros que o servidor teve que lidar.</li>
+              </ul>
+              <h5>Modificado</h5>
+              <ul>
+                  <li>Página de perfil exibe as contas, seções, privilégios e nome do usuário logado.</li>
+                  <li>Variáveis registradas com aspas duplas são trocadas por aspas simples para evitar erros no frontend.</li>
+              </ul>
+              <h5>Corrigido</h5>
+              <ul>
+                  <li>Variáveis registradas com quebra de Linha (ENTER) lidas incorretamente no frontend.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.1.1] - 2022-03-03</h4>
+              <span>Adaptação voltada aos Fiscais de contrato.</span>
+              <h5>Adicionado</h5>
+              <ul>
+                  <li>Nova variável no campo Assunto para se adequar às requisições de Fiscais de Contrato.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.0.1] - 2022-02-22</h4>
+              <span>Pequenas correções na interação com os documentos.</span>
+              <h5>Corrigido</h5>
+              <ul>
+                  <li>Popover no campo Somatório do Pedido no modo Inexibilidade.</li>
+                  <li>Template .odt dos modos Carona e Inexibilidade.</li>
+                  <li>Título no pedido de material/serviço sincronizado com a respectiva variável.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+          <div>
+              <h4> [1.0.0] - 2022-02-21</h4>
+              <span>Desenvolvimento baseado na visão de PRs feitas pela DGEO/4ºCGEO.</span>
+              <h5>Adicionado</h5>
+              <ul>
+                  <li>LOGIN: ligado ao LDAP do SPED local.</li>
+                  <li>PERMISSÕES: ligadas às contas de SPED do usuário logado.</li>
+                  <li>PROCESSOS: ligadas às seções existentes no SPED.</li>
+                  <li>PROCESSOS: numeração ligada ao ano e à seção.</li>
+                  <li>ASSINATURAS: requisitante, fiscal e od separados por modo e documento.</li>
+                  <li>ASSINATURAS FISCAL/OD: autorizadas pela conta do SPED.</li>
+                  <li>Validar/Invalidar pela SALC.</li>
+                  <li>Página de pesquisa.</li>
+                  <li>Página de perfil.</li>
+                  <li>Página de configuração.</li>
+                  <li>Campo de pesquisa.</li>
+                  <li>Pendênicas SALC/FISCAL/OD.</li>
+                  <li>Exportar (.odt).</li>
+                  <li>Comentários.</li>
+                  <li>Clonar este processo.</li>
+              </ul>
+          </div> <!-- end <ul><li></li></ul> -->
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{{block modais}}
+{{end}}
+<span style="visibility: hidden;"><i class="fa fa-spinner fa-spin"></i></span>
+<input type="hidden" name="salvo" value="False">
+{{block popovers}}
+{{end}}
+</body>
+<script>
+$.fn.fileinputBsVersion = '5.1.1'; // for example if using bootstrap css 3.4.1 version
+var hided = 0
+function hide1(){
+    if (hided==0){
+        $(".conteudo").css("left","-290px").css("width","97%");
+        $(".sidebar").css("left","-300px");
+        $(".b-example-divider").css("left","-300px");
+        hided = 1
+    }else{
+        $(".conteudo").css("left","unset").css("width","calc(97% - 300px)");
+        $(".sidebar").css("left","unset");
+        $(".b-example-divider").css("left","300px");
+        hided = 0
+    }
+}
+function hide(){
+    if (hided==0){
+        $(".conteudo").css("left","-290px").css("width","97%");
+        $(".sidebar").css("left","-300px");
+        $(".b-example-divider").css("left","-25px");
+        hided = 1
+    }else{
+        $(".conteudo").css("left","0px").css("width","calc(97% - 300px)");
+        $(".sidebar").css("left","0px");
+        $(".b-example-divider").css("left","300px");
+        hided = 0
+    }
+}
+$.fn.fileinputLocales['pt-BR'] = {
+        sizeUnits: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        bitRateUnits: ['B/s', 'KB/s', 'MB/s', 'GB/s', 'TB/s', 'PB/s', 'EB/s', 'ZB/s', 'YB/s'],
+        fileSingle: 'arquivo',
+        filePlural: 'arquivos',
+        browseLabel: 'Procurar &hellip;',
+        removeLabel: 'Remover',
+        removeTitle: 'Remover arquivos selecionados',
+        cancelLabel: 'Cancelar',
+        cancelTitle: 'Interromper envio em andamento',
+        pauseLabel: 'Pausa',
+        pauseTitle: 'Pausa do envio',
+        uploadLabel: 'Enviar',
+        uploadTitle: 'Enviar arquivos selecionados',
+        msgNo: 'Não',
+        msgNoFilesSelected: 'Nenhum arquivo selecionado',
+        msgPaused: 'Pausado',
+        msgCancelled: 'Cancelado',
+        msgPlaceholder: 'Selecionar {files} ...',
+        msgZoomModalHeading: 'Pré-visualização detalhada',
+        msgFileRequired: 'Você deve selecionar um arquivo para enviar.',
+        msgSizeTooSmall: 'O arquivo "{name}" (<b>{size} KB</b>) é muito pequeno e deve ser maior que <b>{minSize} KB</b>.',
+        msgSizeTooLarge: 'O arquivo "{name}" (<b>{size} KB</b>) excede o tamanho máximo permitido de <b>{maxSize} KB</b>.',
+        msgFilesTooLess: 'Você deve selecionar pelo menos <b>{n}</b> {files} para enviar.',
+        msgFilesTooMany: 'O número de arquivos selecionados para o envio <b>({n})</b> excede o limite máximo permitido de <b>{m}</b>.',
+        msgTotalFilesTooMany: 'Pode enviar no máximo <b>{m}</b> arquivos (<b>{n}</b> arquivos detetados).',
+        msgFileNotFound: 'O arquivo "{name}" não foi encontrado!',
+        msgFileSecured: 'Restrições de segurança impedem a leitura do arquivo "{name}".',
+        msgFileNotReadable: 'O arquivo "{name}" não pode ser lido.',
+        msgFilePreviewAborted: 'A pré-visualização do arquivo "{name}" foi interrompida.',
+        msgFilePreviewError: 'Ocorreu um erro ao ler o arquivo "{name}".',
+        msgInvalidFileName: 'Caracteres inválidos ou não suportados no arquivo "{name}".',
+        msgInvalidFileType: 'Tipo inválido para o arquivo "{name}". Apenas arquivos "{types}" são permitidos.',
+        msgInvalidFileExtension: 'Extensão inválida para o arquivo "{name}". Apenas arquivos "{extensions}" são permitidos.',
+        msgFileTypes: {
+            'image': 'imagem',
+            'html': 'HTML',
+            'text': 'texto',
+            'video': 'vídeo',
+            'audio': 'audio',
+            'flash': 'flash',
+            'pdf': 'PDF',
+            'object': 'objeto'
+        },
+        msgUploadAborted: 'O envio do arquivo foi abortado',
+        msgUploadThreshold: 'Processando &hellip;',
+        msgUploadBegin: 'Inicializando &hellip;',
+        msgUploadEnd: 'Concluído',
+        msgUploadResume: 'Retomando envio &hellip;',
+        msgUploadEmpty: 'Nenhuma informação válida para upload.',
+        msgUploadError: 'Erro de Envio',
+        msgDeleteError: 'Erro ao Deletar',
+        msgProgressError: 'Erro de Envio',
+        msgValidationError: 'Erro de validação',
+        msgLoading: 'Enviando arquivo {index} de {files} &hellip;',
+        msgProgress: 'Enviando arquivo {index} de {files} - {name} - {percent}% completo.',
+        msgSelected: '{n} {files} selecionado(s)',
+        msgProcessing: 'Processing ...',
+        msgFoldersNotAllowed: 'Arraste e solte apenas arquivos! {n} pasta(s) ignoradas.',
+        msgImageWidthSmall: 'Largura do arquivo de imagem "{name}" deve ser pelo menos {size} px.',
+        msgImageHeightSmall: 'Altura do arquivo de imagem "{name}" deve ser pelo menos {size} px.',
+        msgImageWidthLarge: 'Largura do arquivo de imagem "{name}" não pode exceder {size} px.',
+        msgImageHeightLarge: 'Altura do arquivo de imagem "{name}" não pode exceder {size} px.',
+        msgImageResizeError: 'Não foi possível obter as dimensões da imagem para redimensionar.',
+        msgImageResizeException: 'Erro ao redimensionar a imagem.<pre>{errors}</pre>',
+        msgAjaxError: 'Algo deu errado com a operação {operation}. Por favor tente novamente mais tarde!',
+        msgAjaxProgressError: '{operation} falhou',
+        msgDuplicateFile: 'O arquivo "{name}" do mesmo tamanho "{size} KB" já foi selecionado. Ignorando a seleção duplicada.',
+        msgResumableUploadRetriesExceeded:  'Envio abortado, excedido <b>{max}</b> tentativas para o arquivo <b>{file}</b>! Detalhes do erro: <pre>{error}</pre>',
+        msgPendingTime: '{time} restante',
+        msgCalculatingTime: 'calculando o tempo restante',
+        ajaxOperations: {
+            deleteThumb: 'Exclusão de arquivo',
+            uploadThumb: 'Upload de arquivos',
+            uploadBatch: 'Carregamento de arquivos em lote',
+            uploadExtra: 'Carregamento de dados do formulário'
+        },
+        dropZoneTitle: 'Arraste e solte os arquivos aqui &hellip;',
+        dropZoneClickTitle: '<br>(ou clique para selecionar o(s) arquivo(s))',
+        fileActionSettings: {
+            removeTitle: 'Remover arquivo',
+            uploadTitle: 'Enviar arquivo',
+            uploadRetryTitle: 'Repetir envio',
+            downloadTitle: 'Baixar arquivo',
+            zoomTitle: 'Ver detalhes',
+            dragTitle: 'Mover / Reordenar',
+            indicatorNewTitle: 'Ainda não enviado',
+            indicatorSuccessTitle: 'Enviado',
+            indicatorErrorTitle: 'Erro',
+            indicatorPausedTitle: 'Envio pausado',
+            indicatorLoadingTitle:  'Enviando &hellip;'
+        },
+        previewZoomButtonTitles: {
+            prev: 'Visualizar arquivo anterior',
+            next: 'Visualizar próximo arquivo',
+            toggleheader: 'Mostrar cabeçalho',
+            fullscreen: 'Ativar tela cheia',
+            borderless: 'Ativar modo sem borda',
+            close: 'Fechar pré-visualização detalhada'
+        }
+    };
+</script>
+{{block scripts}}
+{{end}}
+</html>

@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  prs:
+    build: .
+    depends_on:
+      - post
+    networks:
+      - overlay
+    container_name: processos-requisitorios
+    working_dir: /home/www-data/web2py
+    command: bash apache2ctl -D FOREGROUND
+    ports:
+          - 443:443
+    environment:
+      POST_HOST: post
+      POST_USER: postgres
+      POST_PASSWORD: secret
+      POST_DB: requisicoes
+    restart: always
+  post:
+    image: postgres:12-alpine
+    container_name: post
+    networks:
+      - overlay
+    ports:
+          - 5432:5432
+    volumes:
+          - post-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_MULTIPLE_DATABASES: requisicoes,authdb
+    restart: always
+volumes:
+  post-data:
+networks:
+  overlay:

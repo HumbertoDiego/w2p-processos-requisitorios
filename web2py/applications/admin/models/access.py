@@ -23,6 +23,9 @@ if request.env.web2py_runtime_gae:
 else:
     is_gae = False
 
+#https://groups.google.com/g/web2py/c/FKA7qgiB55M
+#para acessar o admin via http:
+request.is_local=True
 if request.is_https:
     session.secure()
 elif request.env.trusted_lan_prefix and \

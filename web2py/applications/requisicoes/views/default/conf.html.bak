@@ -1,0 +1,40 @@
+{{extend 'layout2.html'}}
+{{block styles}}
+<style>
+.form-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+</style>
+{{end}}
+{{block content}}
+<h2>
+    Configurações da aplicação Processos requisitórios
+</h2>
+<div class="form-group">
+    <label class="form-control-label"><b>ADMIN</b>:</label>
+    <select class="generic-widget form-control" disabled>
+        <option value="0">{{=configuration.get('app.conta_admin')[0]+": "+configuration.get('app.conta_admin')[1]}}</option>
+    </select>
+</div>
+<div class="form-group">
+    <b>SEÇÕES ATIVADAS</b>:
+    <ul class="list-group list-group-horizontal">
+        {{for s in get_secoes():}}
+        <li class="list-group-item ">{{=s}}
+        <span class="badge bg-primary rounded-pill">{{=dbpg(dbpg.processo_requisitorio.secao_ano_nr.contains(s)).count()}}</span>
+        </li>
+        {{pass}}
+    </ul>
+</div>
+{{=form}}
+{{end}}
+{{block scripts}}
+<script>
+    hide();
+    console.log("{{=response.flash or ''}}");
+</script>
+{{end}}

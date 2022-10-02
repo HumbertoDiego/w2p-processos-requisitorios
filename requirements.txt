@@ -1,3 +1,4 @@
 psycopg2-binary
 relatorio
 requests
+python-ldap

@@ -1,0 +1,21 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+from gluon import *
+import psycopg2
+
+def insert_db(uri):
+    #postgres2:psycopg2://user:senha@localhost:5432/requisicoes
+    milk = uri.split("//")[-1]
+    user, senha = milk.split("@")[0].split(":")
+    ip, porta = milk.split("@")[-1].split("/")[0].split(":")
+    dbname = milk.split("/")[-1]
+    
+    conn = psycopg2.connect(database="postgres", user=user, host=ip, password=senha)
+     # "CREATE DATABASE" requires automatic commits
+    conn.autocommit = True
+    cur = conn.cursor()
+    sql_query = "CREATE DATABASE %s"%dbname
+    cur.execute(sql_query)
+    conn.close()
+    cur.close()
+    return True

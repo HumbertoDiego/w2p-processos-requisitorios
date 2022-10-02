@@ -19,6 +19,8 @@ App para montagem de processos requisitórios para aquisição de bens ou servi�
 git init
 git pull https://github.com/HumbertoDiego/django-cbers4amanager
 docker build -t prs .
-docker run -dp 8000:8000 -e PASSWORD=secret --name processos-requisitorios prs
+docker run -dp 443:443 --name processos-requisitorios prs
+docker-compose exec processos-requisitorios bash
+docker-compose exec prs tail -f /var/log/apache2/error.log
 ```
-## Fluxo de tabalhopyt
+## Fluxo de tabalho
