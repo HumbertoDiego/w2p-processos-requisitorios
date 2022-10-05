@@ -7,6 +7,7 @@ def pop(**kargs):
     cur.execute("INSERT INTO secao (nm_sigla, in_excluido) VALUES (%s,%s) RETURNING id_secao;", ("Chefia","n"))
     id_secao = cur.fetchone()[0]
     cur.execute("INSERT INTO secao (id_pai,nm_sigla, in_excluido) VALUES (%s,%s,%s) RETURNING id_secao;", (id_secao,"Aquisições","n"))
+    id_secao = cur.fetchone()[0]
     cur.execute("INSERT INTO usuario (nm_usuario, in_excluido) VALUES (%s,%s) RETURNING id_usuario;", ("Chefe SALC", "n"))
     id_usuario = cur.fetchone()[0]
     cur.execute("INSERT INTO pessoa (nm_login, nm_completo, cd_patente, nm_guerra) VALUES (%s,%s,%s,%s) RETURNING id_pessoa", ("capdiego", "Humberto Diego Aguiar Alves", "6", "Diego"))

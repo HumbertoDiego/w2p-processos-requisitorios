@@ -127,26 +127,26 @@ dbpgsped.define_table('pessoa',
                     Field('id_pessoa','id'),
                     Field('nm_login'),
                     Field('nm_completo'),
-                    Field('cd_patente'),
+                    Field('cd_patente','integer'),
                     Field('nm_guerra'),
                     migrate=migrate_bool
                     )
 dbpgsped.define_table('secao',
                     Field('id_secao','id'),
-                    Field('id_pai'),
+                    Field('id_pai','integer'),
                     Field('nm_sigla'),
                     Field('in_excluido'),
                     migrate=migrate_bool
                     )
 dbpgsped.define_table('usuario_pessoa',
                     Field('id_usuario','id'),
-                    Field('id_pessoa'),
+                    Field('id_pessoa','integer'),
                     Field('dt_fim'),
                     migrate=migrate_bool
                     )
 dbpgsped.define_table('usuario_secao',
                     Field('id_usuario','id'),
-                    Field('id_secao'),
+                    Field('id_secao','integer'),
                     migrate=migrate_bool
                     )
 

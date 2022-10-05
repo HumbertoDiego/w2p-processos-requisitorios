@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import utils,json,re
+import utils, json,re
 ############################################### Funções de apoio ##########################################
 ########## Suscetível a IP Spoofing #############
 def check_subnet_ip(callee):
@@ -70,7 +70,7 @@ def getPrivs():
         if conf.conta_odsubstituto==contadesteuser[0]:
             is_odsubstituto=True
         try:
-            if int(configuration.get('app.conta_admin')[1])==contadesteuser[0]:
+            if int(list(configuration.get('app.conta_admin'))[1])==contadesteuser[0]:
                 is_admin=True
         except:
             pass
@@ -283,7 +283,7 @@ def profile():
     salc,fiscal,od,admin,odsubstituto = ["Sim" if f else "Não" for f in [is_salc,is_fiscal,is_od,is_admin,is_odsubstituto]]
     logado = auth.user.as_dict()
     pessoa = dbpgsped(dbpgsped.pessoa.nm_login==auth.user.username).select().first().as_dict()
-    pessoa['patente'] = dbpgsped.executesql("SELECT posto_graduacao(%d,1);"%pessoa['cd_patente'])[0][0]
+    pessoa['patente'] = utils.posto_graduacao(pessoa['cd_patente'], 1)
     usuarios = {}
     for usuario in dbpgsped( (dbpgsped.usuario_pessoa.id_pessoa==pessoa['id_pessoa']) & (dbpgsped.usuario_pessoa.dt_fim==None)).select(dbpgsped.usuario_pessoa.id_usuario):
         usuarios[usuario.id_usuario]=dbpgsped.usuario(usuario.id_usuario).as_dict()
@@ -415,6 +415,10 @@ def api():
         dic=dict(novo=False,edit=False,assinar=False,comentar=False,remline=False)
         for key, value in dic.items():
             if key in vars: dic.update({key:True if (vars[key] == "1" or vars[key] == "true") else False})
+        #clean data
+        from urllib.parse import unquote
+        vars['processo'] = unquote(vars.get('processo',""))
+        allowed = list(ALLOWED)
         if dic['novo']:
             try:
                 resumo = vars.pop('resumo')
@@ -487,7 +491,8 @@ def api():
                 raise HTTP(500)
             try:
                 pessoa = dbpgsped(dbpgsped.pessoa.nm_login==vars['login']).select().first().as_dict()
-                pessoa['patente'] = dbpgsped.executesql("SELECT posto_graduacao(%d,1);"%pessoa['cd_patente'])[0][0]
+                pessoa['patente'] = utils.posto_graduacao(pessoa['cd_patente'], 1)
+                #pessoa['patente'] = dbpgsped.executesql("SELECT posto_graduacao(%d,1);"%pessoa['cd_patente'])[0][0]
                 militar = pessoa['patente'] + " " + pessoa['nm_guerra']+ " - "+ pessoa['nm_completo']
             except:
                 raise HTTP(500)
@@ -507,15 +512,16 @@ def api():
             odsubstituto = ""
             autorizado = False
             for contadesteuser in contas:
-                for id_usuario in conf.contas_salc:
-                    if dbpgsped.usuario(id_usuario).nm_usuario==contadesteuser[1]:
-                        is_salc=True
-                if dbpgsped.usuario(conf.conta_fiscal).nm_usuario==contadesteuser[1]:
-                    is_fiscal=True
-                if dbpgsped.usuario(conf.conta_od).nm_usuario==contadesteuser[1]:
-                    is_od=True
-                if dbpgsped.usuario(conf.conta_odsubstituto).nm_usuario==contadesteuser[1]:
-                    is_odsubstituto=True
+                if conf:
+                    for id_usuario in conf.contas_salc:
+                        if dbpgsped.usuario(id_usuario).nm_usuario==contadesteuser[1]:
+                            is_salc=True
+                    if dbpgsped.usuario(conf.conta_fiscal).nm_usuario==contadesteuser[1]:
+                        is_fiscal=True
+                    if dbpgsped.usuario(conf.conta_od).nm_usuario==contadesteuser[1]:
+                        is_od=True
+                    if dbpgsped.usuario(conf.conta_odsubstituto).nm_usuario==contadesteuser[1]:
+                        is_odsubstituto=True
             if "_requisitante" in vars['campo']: autorizado = True
             elif "_fiscal" in vars['campo'] and is_fiscal: autorizado = True
             elif "_od" in vars['campo'] and is_od: autorizado = True
@@ -562,7 +568,8 @@ def api():
         if dic['comentar']:
             try:
                 pessoa = dbpgsped(dbpgsped.pessoa.nm_login==auth.user.username).select().first().as_dict()
-                pessoa['patente'] = dbpgsped.executesql("SELECT posto_graduacao(%d,1);"%pessoa['cd_patente'])[0][0]
+                pessoa['patente'] =  utils.posto_graduacao(pessoa['cd_patente'], 1)
+                #pessoa['patente'] =  dbpgsped.executesql("SELECT posto_graduacao(%d,1);"%pessoa['cd_patente'])[0][0]
                 autor = pessoa['patente'] + " " + pessoa['nm_guerra']+ " - "+ pessoa['nm_completo']
                 dic['autor']=autor
                 dic['datahora']=request.now.strftime("%d-%m-%Y %H:%M:%S")
@@ -590,7 +597,8 @@ def api():
             variaveis_tipo_lista = ['nritem','descricaoitem','unidade','qtitens','valor','somaparcial','valorvencedor','valorcomparacao1',
                                     'valorcomparacao2','valorcomparacao3','unit2','unit3']
             variaveis_parecidas_com_lista = ['ncvalor']
-            for k, v in dados.items():
+            dados_copy = dados.copy()
+            for k, v in dados_copy.items():
                 if "-"+str(ordem) in k:
                     dic['vars'].append({k:dados.pop(k)})
                 for val in variaveis_tipo_lista:
@@ -602,7 +610,10 @@ def api():
                         except:
                             raise HTTP(500,H2(k))
                         break
-            countlinhas_pedido=max(countlinhas_pedido)
+            if countlinhas_pedido:
+                countlinhas_pedido = max(countlinhas_pedido)
+            else:
+                countlinhas_pedido = 1
             dic['qtlinhas']=countlinhas_pedido
             while countlinhas_pedido>=ordem:
                 ordem+=1
@@ -613,12 +624,13 @@ def api():
             pr['dados']=json.dumps(dados)
             pr.update_record()
         if "up" in args:
-            if vars['processo'].split("_")[0] not in secoes_deste_user(): return response.json({"error":"Usuário não pertence a esta seção."})
+            if vars['processo'].split("_")[0] not in secoes_deste_user():
+                return response.json({"error":"Usuário não pertence a esta seção."})
             if "carona" in args: modo = "carona"
             elif "dispensa" in args: modo = "dispensa"
             elif "inex" in args: modo = "inex"
             else: response.json({"error":"Modo não permitido"})
-            from cStringIO import StringIO
+            from io import BytesIO
             try:
                 anexos_deste_processo = dbpg(dbpg.anexos.pr==vars['processo']).select()
                 total = 0
@@ -635,8 +647,8 @@ def api():
                 dados = json.loads(pr['dados'])
                 dados['modo']=modo
                 filename = vars['file-data'].filename
-                if filename.split(".")[-1] in ALLOWED:
-                    nid = dbpg.anexos.insert(arquivo=dbpg.anexos.arquivo.store(StringIO(vars['file-data'].value), filename),
+                if filename.split(".")[-1] in allowed:
+                    nid = dbpg.anexos.insert(arquivo=dbpg.anexos.arquivo.store(BytesIO(vars['file-data'].value), filename),
                                    modo=modo,
                                    tamanho=str(filesize),
                                    name=filename,
@@ -660,7 +672,7 @@ def api():
                 else:
                     return response.json({"error":"Extensão não permitida"})
             except Exception as e:
-                raise HTTP(500,H2(e))
+                raise HTTP(500,H2(str(e)+str(filename.split(".")[-1] in allowed)))
         if "del" in args:
             try:
                 if vars['processo'].split("_")[0] not in secoes_deste_user():
@@ -668,14 +680,17 @@ def api():
                 pr = dbpg(dbpg.processo_requisitorio.secao_ano_nr==vars['processo']).select().first()
                 if pr['valido']!=None:
                     return response.json({"error":"Este processo já foi encerrado."})
-                pr2 = dbpg.anexos(int(vars['key']))['pr']
+                anexo_row = dbpg.anexos(int(vars['key']))
+                if not anexo_row:
+                    return response.json({"error":"Arquivo não encontrado!"})
+                pr2 = anexo_row['pr']
                 if pr2.split("_")[0] not in secoes_deste_user():
                     return response.json({"error":"Usuário não pertence a esta seção!"})
                 if pr2!=vars['processo']:
                     return response.json({"error":"Arquivo não pertence a este processo!"})
                 dbpg(dbpg.anexos.id==int(vars['key'])).delete()
             except Exception as e:
-                raise HTTP(500,H2(e))
+                raise HTTP(500,H2(str(e)))
         return response.json(dic)
     def PUT(*args, **vars):
         dic=dict(validar=False,invalidar=False,clonar=False)

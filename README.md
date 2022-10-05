@@ -29,7 +29,8 @@ docker-compose exec prs tail -f /var/log/apache2/error.log
 ```
 docker-compose exec ldap bash
 root@c234c8a25db8:/#
-  
+  service slapd status
+  ldapsearch -x -b "dc=eb,dc=mil,dc=br" -D "cn=admin,dc=eb,dc=mil,dc=br" -W
 ```
 
 ## Fluxo de tabalho
