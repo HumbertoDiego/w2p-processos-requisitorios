@@ -78,7 +78,7 @@
        <div style="overflow:auto; width:80%;">
        {{linkto = lambda f, t, r: URL('update', args=[request.args[0], r, f]) if f else "#"}}
        {{upload=URL('download',args=request.args[0])}}
-       {{=SQLTABLE(rows,linkto,upload,orderby=True,_class='sortable')}}
+       {{=SQLTABLE(rows,linkto,upload,orderby=True,_class='web2py_grid',headers='fieldname:capitalize')}}
        </div>
     {{pass}}
     <br/><br/><h3>{{=T("Import/Export")}}</h3><br/>

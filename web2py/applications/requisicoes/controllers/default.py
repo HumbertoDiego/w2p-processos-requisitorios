@@ -474,7 +474,8 @@ def api():
         if dic['assinar']:
             if 'senha' in vars and 'login' in vars:
                 import ldap
-                l = ldap.initialize('ldap://'+configuration.get('sped.host'))
+                ldap_host = configuration.get('sped.host') if configuration.get('sped.host') else configuration.get('ldap.host')
+                l = ldap.initialize('ldap://'+ldap_host)
                 username = "cn=%s,%s" % (vars['login'],BASE_DN)
                 password = vars['senha']
                 try:

@@ -120,6 +120,7 @@ dbpgsped.define_table('usuario',
                     Field('id_usuario','id'),
                     Field('nm_usuario'),
                     Field('in_excluido'),
+                    format='%(id_usuario)s - %(nm_usuario)s',
                     migrate=migrate_bool
                 )
 
@@ -129,6 +130,7 @@ dbpgsped.define_table('pessoa',
                     Field('nm_completo'),
                     Field('cd_patente','integer'),
                     Field('nm_guerra'),
+                    format='%(id_pessoa)s - %(nm_guerra)s - %(nm_completo)s',
                     migrate=migrate_bool
                     )
 dbpgsped.define_table('secao',
@@ -136,19 +138,23 @@ dbpgsped.define_table('secao',
                     Field('id_pai','integer'),
                     Field('nm_sigla'),
                     Field('in_excluido'),
+                    format='%(id_secao)s - %(nm_sigla)s',
                     migrate=migrate_bool
                     )
 dbpgsped.define_table('usuario_pessoa',
-                    Field('id_usuario','id'),
-                    Field('id_pessoa','integer'),
+                    Field('id_usuario_pessoa','id'),
+                    Field('id_usuario',dbpgsped.usuario),
+                    Field('id_pessoa',dbpgsped.pessoa),
                     Field('dt_fim'),
                     migrate=migrate_bool
                     )
 dbpgsped.define_table('usuario_secao',
-                    Field('id_usuario','id'),
-                    Field('id_secao','integer'),
+                    Field('id_usuario',dbpgsped.usuario),
+                    Field('id_secao',dbpgsped.secao),
+                    primarykey=['id_usuario', 'id_secao'],
                     migrate=migrate_bool
                     )
+
 
 dbpg = DAL(configuration.get('dbpg.uri'),
             pool_size=configuration.get('dbpg.pool_size'),
