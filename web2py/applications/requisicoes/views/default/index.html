@@ -144,8 +144,8 @@
                 </div>
                 <p class="mb-1 small">Solicitar autorização do fornecedor para Adesão ao preço registrado no Pregão, bem como, a confirmação do fornecimento dos itens e quantidades com entrega no 4º Centro de Geoinformação.
                     <br>
-                    <a class="small" href="http://10.79.8.20/SECOES_4CGEO/4SECAO/SALC/PARTE%20REQUISIT%c3%93RIA%20POR%20ADES%c3%83O%20(CARONA)/" target="_blank">Modelo de solicitação de aceite</a><br>
-                    <a class="small" href="{{=URL('static','modelis/ACEITE_POWER_TOP.pdf')}}" target="_blank">Modelo de aceite</a>
+                    <a class="small" href="{{=configuration.get('app.url_modelo_solicitacao_aceite')}}" target="_blank">Modelo de solicitação de aceite</a><br>
+                    <a class="small" href="{{=URL('static','pdfs/ACEITE_FORNECEDOR.pdf')}}" target="_blank">Modelo de aceite</a>
                 </p>
             </div>
             <div href="#" class="list-group-item list-group-item-action">
@@ -155,7 +155,7 @@
                 </div>
                 <p class="mb-1 small">Priorizando <b>preços de outras compras governamentais</b> (<a href="http://comprasnet.gov.br/Livre/Ata/ConsultaAta00.asp" target="_blank">ComprasNet</a> e/ou <a href="https://paineldeprecos.planejamento.gov.br" target="_blank" >Painel de Preços</a>) anexar os comprovantes dos valores utilizados no mapa comparativo.
                     <br>
-                    <a class="small" href="{{=URL('static','modelis/Cot_Drone_731000_072021_item1_Vencendor.pdf')}}" target="_blank">Modelo de pesquisa de preço</a>
+                    <a class="small" href="{{=URL('static','pdfs/Cot_Drone_731000_072021_item1_Vencendor.pdf')}}" target="_blank">Modelo de pesquisa de preço</a>
                 </p>
                 <p class="mb-1 small">É possível a <b>cotação diretamente com fornecedores</b> caso comprovação da impossibilidade da pesquisa dentro da prioridade acima, neste caso, anexar comprovantes de indisponibilidade de compra via licitações (atentar para o CATMAT ser o mesmo do mapa comparativo). A Pesquisa de Preço junto aos fornecedores deve respeitar os seguintes procedimentos:</p>
                     <ol class="small" style="margin-bottom: 0;">
@@ -170,9 +170,9 @@
                         <li class="small">Deve constar o local de entrega do objeto.</li>
                     </ol>
                 <p class="mb-1 small">
-                    <a class="small" href="{{=URL('static','modelis/ComprasNet_ComprovanteIndisponibilidadeCompraViaLicitacoes.pdf')}}" target="_blank">Modelo de comprovante de indisponibilidade de compra via licitações</a><br>
-                    <a class="small" href="http://10.79.8.20/SECOES_4CGEO/4SECAO/SALC/PARTE%20REQUISIT%c3%93RIA%20PARA%20DISPENSA%20DE%20LICITA%c3%87%c3%83O/" target="_blank">Modelo de ofício de solicitação de orçamento diretamente com fornecedor</a><br>
-                    <a class="small" href="{{=URL('static','modelis/Proposta_TecniPrint.pdf')}}" target="_blank">Modelo de proposta</a>
+                    <a class="small" href="{{=URL('static','pdfs/ComprasNet_ComprovanteIndisponibilidadeCompraViaLicitacoes.pdf')}}" target="_blank">Modelo de comprovante de indisponibilidade de compra via licitações</a><br>
+                    <a class="small" href="{{=configuration.get('app.url_modelo_solicitacao_orcamento')}}" target="_blank">Modelo de ofício de solicitação de orçamento diretamente com fornecedor</a><br>
+                    <a class="small" href="{{=URL('static','pdfs/Proposta_fornecdor.pdf')}}" target="_blank">Modelo de proposta</a>
                 </p>
             </div>
         </div>
@@ -184,7 +184,45 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-
+        <div class="list-group">
+            <div href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Comprovante de inviabilidade de compra por pregão gerente ou adesão à pregão SRP</h5>
+                    <input type="checkbox" id="cicpgapsrp" name="cicpgapsrp">
+                </div>
+                <p class="mb-1 small">Se a compra for previsível, planejar e executar um pregão apropriado em A-1, ainda, caso seja concluída a imprevisibilidade da compra, (o documento "Justificativa" deve constar os devidos esclarecimentos) procurar no comprasnet um pregão "caronável" e tentar utilizá-lo.
+                    <br>
+                    <a class="small" href="{{=URL('static','pdfs/ComprasNet_ComprovanteIndisponibilidadeCompraViaLicitacoes.pdf')}}" target="_blank">Modelo de comprovante de inexistência de pregão "caronável" apropriado.</a><br>
+                </p>
+            </div>
+            <div href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Pesquisa de preço</h5>
+                    <input type="checkbox" id="horns" name="horns">
+                </div>
+                <p class="mb-1 small">Priorizando <b>preços de outras compras governamentais</b> (<a href="http://comprasnet.gov.br/Livre/Ata/ConsultaAta00.asp" target="_blank">ComprasNet</a> e/ou <a href="https://paineldeprecos.planejamento.gov.br" target="_blank" >Painel de Preços</a>) anexar os comprovantes dos valores utilizados no mapa comparativo.
+                    <br>
+                    <a class="small" href="{{=URL('static','pdfs/Cot_Drone_731000_072021_item1_Vencendor.pdf')}}" target="_blank">Modelo de pesquisa de preço</a>
+                </p>
+                <p class="mb-1 small">É possível a <b>cotação diretamente com fornecedores</b> caso comprovação da impossibilidade da pesquisa dentro da prioridade acima, neste caso, anexar comprovantes de indisponibilidade de compra via licitações (atentar para o CATMAT ser o mesmo do mapa comparativo). A Pesquisa de Preço junto aos fornecedores deve respeitar os seguintes procedimentos:</p>
+                    <ol class="small" style="margin-bottom: 0;">
+                        <li class="small">Deve preferencialmente ser solicitada em forma de ofício da empresa;</li>
+                        <li class="small">Os ofícios enviados devem ser devolvidos com assinatura de recebido de um representante da empresa;</li>
+                        <li class="small">Deve conter a logo da empresa;</li>
+                        <li class="small">Deve conter dados cadastrais da empresa;</li>
+                        <li class="small">Deve conter a assinatura do representante legal da empresa;</li>
+                        <li class="small">Todas as páginas devem ser rubricadas pelo representante legal da empresa;</li>
+                        <li class="small">Deve conter a validade da proposta oferecida (normalmente de 30 a 90 dias);</li>
+                        <li class="small">Deve estar datada;</li>
+                        <li class="small">Deve constar o local de entrega do objeto.</li>
+                    </ol>
+                <p class="mb-1 small">
+                    <a class="small" href="{{=URL('static','pdfs/ComprasNet_ComprovanteIndisponibilidadeCompraViaLicitacoes.pdf')}}" target="_blank">Modelo de comprovante de indisponibilidade de compra via licitações</a><br>
+                    <a class="small" href="{{=configuration.get('app.url_modelo_solicitacao_orcamento')}}" target="_blank">Modelo de ofício de solicitação de orçamento diretamente com fornecedor</a><br>
+                    <a class="small" href="{{=URL('static','pdfs/Proposta_fornecedor.pdf')}}" target="_blank">Modelo de proposta</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="ajudaanexosinex" aria-labelledby="ajudaanexosinexLabel">
@@ -193,7 +231,45 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-
+        <div class="list-group">
+            <div href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Comprovante de inviabilidade de compra por ampla concorrênica</h5>
+                    <input type="checkbox" id="cicpgapsrp" name="cicpgapsrp">
+                </div>
+                <p class="mb-1 small">Caso seja concluída a exclusividade da compra, (o documento "Justificativa" deve constar os devidos esclarecimentos) procurar obter via associação de comércio da categoria documento que ateste a exclusividade.
+                    <br>
+                    <a class="small" href="{{=configuration.get('app.url_modelo_comprovante_exclusividade')}}" target="_blank">Modelo de comprovante de exclusividade.</a><br>
+                </p>
+            </div>
+            <div href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Pesquisa de preço</h5>
+                    <input type="checkbox" id="horns" name="horns">
+                </div>
+                <p class="mb-1 small">Priorizando <b>preços de outras compras governamentais</b> (<a href="http://comprasnet.gov.br/Livre/Ata/ConsultaAta00.asp" target="_blank">ComprasNet</a> e/ou <a href="https://paineldeprecos.planejamento.gov.br" target="_blank" >Painel de Preços</a>) anexar os comprovantes dos valores utilizados no mapa comparativo.
+                    <br>
+                    <a class="small" href="{{=URL('static','pdfs/Cot_Drone_731000_072021_item1_Vencendor.pdf')}}" target="_blank">Modelo de pesquisa de preço</a>
+                </p>
+                <p class="mb-1 small">É possível a <b>cotação diretamente com fornecedores</b> caso comprovação da impossibilidade da pesquisa dentro da prioridade acima, neste caso, anexar comprovantes de indisponibilidade de compra via licitações (atentar para o CATMAT ser o mesmo do mapa comparativo). A Pesquisa de Preço junto aos fornecedores deve respeitar os seguintes procedimentos:</p>
+                    <ol class="small" style="margin-bottom: 0;">
+                        <li class="small">Deve preferencialmente ser solicitada em forma de ofício da empresa;</li>
+                        <li class="small">Os ofícios enviados devem ser devolvidos com assinatura de recebido de um representante da empresa;</li>
+                        <li class="small">Deve conter a logo da empresa;</li>
+                        <li class="small">Deve conter dados cadastrais da empresa;</li>
+                        <li class="small">Deve conter a assinatura do representante legal da empresa;</li>
+                        <li class="small">Todas as páginas devem ser rubricadas pelo representante legal da empresa;</li>
+                        <li class="small">Deve conter a validade da proposta oferecida (normalmente de 30 a 90 dias);</li>
+                        <li class="small">Deve estar datada;</li>
+                        <li class="small">Deve constar o local de entrega do objeto.</li>
+                    </ol>
+                <p class="mb-1 small">
+                    <a class="small" href="{{=URL('static','pdfs/ComprasNet_ComprovanteIndisponibilidadeCompraViaLicitacoes.pdf')}}" target="_blank">Modelo de comprovante de indisponibilidade de compra via licitações</a><br>
+                    <a class="small" href="{{=configuration.get('app.url_modelo_solicitacao_orcamento')}}" target="_blank">Modelo de ofício de solicitação de orçamento diretamente com fornecedor</a><br>
+                    <a class="small" href="{{=URL('static','pdfs/Proposta_fornecedor.pdf')}}" target="_blank">Modelo de proposta</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 <div class="tab-content">
@@ -230,7 +306,7 @@
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row">
@@ -369,7 +445,7 @@
                                 </div>
                                 <div style="text-align:center;">
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_gerente"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_gerente"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                 </div>
                             </div>
                             <br><br>
@@ -387,7 +463,7 @@
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row" style="text-align: center;">
@@ -469,8 +545,8 @@
                                         </tr>
                                         <tr>
                                             <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Requisitante</td>
-                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</td>
-                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Ordenador de Despesas <span id="odsubstituto_pedido_gerente"></span> do {{=configuration.get('app.omextenso')}}</td>
+                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</td>
+                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Ordenador de Despesas <span id="odsubstituto_pedido_gerente"></span> do {{=configuration.get('app.orgextenso')}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -524,7 +600,7 @@
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row">
@@ -662,7 +738,7 @@
                                 </div>
                                 <div style="text-align:center;">
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_carona"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_carona"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                 </div>
                             </div>
                             <br><br>
@@ -681,7 +757,7 @@
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row" style="text-align: center;">
@@ -763,8 +839,8 @@
                                         </tr>
                                         <tr>
                                             <td width="33%;" style="border:1px">____________<br>Requisitante</td>
-                                            <td width="33%;" style="border:1px">____________<br>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</td>
-                                            <td width="33%;" style="border:1px">____________<br>Ordenador de Despesas <span id="odsubstituto_pedido_carona"></span> do {{=configuration.get('app.omextenso')}}</td>
+                                            <td width="33%;" style="border:1px">____________<br>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</td>
+                                            <td width="33%;" style="border:1px">____________<br>Ordenador de Despesas <span id="odsubstituto_pedido_carona"></span> do {{=configuration.get('app.orgextenso')}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -785,7 +861,7 @@
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>MAPA COMPARATIVO DE PREÇO<br><br>Referente a Requisição nº {{=nr}}/{{=ano}} da {{=secao}} de <span id="dataextenso-comparativo-carona">01 de Janeiro</span> de {{=ano}}</b>
                                 </div>
                             </div>
@@ -857,7 +933,7 @@
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>JUSTIFICATIVA DE AQUISIÇÃO<br><br>Referente a Requisição nº {{=nr}}/{{=ano}} da {{=secao}} de <span id="dataextenso-justificativa-carona">01 de Janeiro</span> de {{=ano}}</b>
                                 </div>
                             </div>
@@ -866,7 +942,7 @@
                                     <br>
                                     <p>A) FINALIDADE DA AQUISIÇÃO</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="var" id="finalidade-justificativa-carona" data-toggle="popover-x" data-target="#finalidade-justificativa-carona_popover" data-placement="top">A presente requisição tem por finalidade atender as demandas de serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.omabrev')}}.</span>
+                                    <span class="var" id="finalidade-justificativa-carona" data-toggle="popover-x" data-target="#finalidade-justificativa-carona_popover" data-placement="top">A presente requisição tem por finalidade atender as demandas de serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.orgabrev')}}.</span>
                                     <br><br>
                                     <p>B) ONDE SERÁ EMPREGADO</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -899,7 +975,7 @@
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <div id="ass_od_justificativa_carona" >
@@ -907,7 +983,7 @@
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_justificativa_carona"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_justificativa_carona"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                 </div>
@@ -927,7 +1003,7 @@
                              <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}<br><br>
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}<br><br>
                                     <b>ESTUDO DE VIABILIDADE<br><br>Adesão à ARP Pregão nº
                                     <span class="var" id="nrarp-etp-carona" data-toggle="popover-x" data-target="#nrarp-etp-carona_popover" data-placement="top">00045/2020 - PMB - UG: 160482</span></b>
                                 </div>
@@ -950,7 +1026,7 @@
                                     , cujo objeto é o registro de preços para aquisição de
                                     <span class="var" id="desc112-etp-carona" data-toggle="popover-x" data-target="#desc112-etp-carona_popover" data-placement="top">
                                         SERVIÇO DE TELEFONIA VIA SATÉLITE  PARA O EQUIPAMENTO IRIDIUM
-                                    </span> conforme condições, quantidades e exigências estabelecidas, para atender às necessidades do {{=configuration.get('app.omextenso')}}, UASG {{=configuration.get('app.ug')}}, na condição de entidade não participante, em conformidade com os termos do Edital e anexos, do aludido pregão eletrônico.
+                                    </span> conforme condições, quantidades e exigências estabelecidas, para atender às necessidades do {{=configuration.get('app.orgextenso')}}, UASG {{=configuration.get('app.ug')}}, na condição de entidade não participante, em conformidade com os termos do Edital e anexos, do aludido pregão eletrônico.
                                 </div>
                             </div>
                             <div class='row' style='margin-top:20px'>
@@ -1007,7 +1083,7 @@
                                 <div class="col-md-9" style="text-align:justify">
                                     Conforme os termos contidos na legislação vigente, foi decidido adquirir os serviços descritos no item 2 deste termo, com objetivo de atender as demandas de
                                     <span id="desc31-etp-carona" class='var' data-toggle="popover-x" data-target="#desc31-etp-carona_popover" data-placement="top">
-                                    serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.omabrev')}} , por meio do pregão eletrônico no 00045/20, gerenciado pela 1ª Brigada de Infantaria de Selva UASG (160482)
+                                    serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.orgabrev')}} , por meio do pregão eletrônico no 00045/20, gerenciado pela 1ª Brigada de Infantaria de Selva UASG (160482)
                                     </span>
                                     , na qualidade de UASG não participante.
                                 </div>
@@ -1091,7 +1167,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    A solicitação de adesão visa à desburocratização e o uso do poder de compra, possibilitando a obtenção de menores preços nas contratações do {{=configuration.get('app.omabrev')}} e da Administração Pública.
+                                    A solicitação de adesão visa à desburocratização e o uso do poder de compra, possibilitando a obtenção de menores preços nas contratações do {{=configuration.get('app.orgabrev')}} e da Administração Pública.
                                 </div>
                             </div>
                             <div class='row' style='margin-top:20px'>
@@ -1158,14 +1234,14 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    Os materiais deverão ser entregues na cidade de {{=configuration.get('app.omcidade')+"/"+configuration.get('app.omestadoabrev')}}, em local, data e horário estabelecido por esta Organização Militar, {{=configuration.get('app.omextenso').upper()}}, localizado no seguinte endereço: {{=OMENDERECO}}.
+                                    Os materiais deverão ser entregues na cidade de {{=configuration.get('app.orgcidade')+"/"+configuration.get('app.orgestadoabrev')}}, em local, data e horário estabelecido por esta Organização Militar, {{=configuration.get('app.timbre_linha4')}}}, localizado no seguinte endereço: {{=configuration.get('app.orgendereco')}}}.
                                 </div>
                                 <div class='col-md-1 offset-md-1' style="text-align:right">
                                     <p>5.2.
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    O responsável pelo recebimento será o Almoxarifado do {{=configuration.get('app.omextenso')+" — "+configuration.get('app.omabrev')}}, quando será verificada a conformidade entre o que foi empenhado, constante da nota de empenho e o que está sendo fornecido, constante da nota fiscal.
+                                    O responsável pelo recebimento será o Almoxarifado do {{=configuration.get('app.orgextenso')+" — "+configuration.get('app.orgabrev')}}, quando será verificada a conformidade entre o que foi empenhado, constante da nota de empenho e o que está sendo fornecido, constante da nota fiscal.
                                 </div>
                             </div>
                              <div class='row' style='margin-top:20px'>
@@ -1209,7 +1285,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             </div>
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
-                                    <br>{{=configuration.get('app.omcidade')+"/"+configuration.get('app.omestadoabrev')}}, <span id="dataextenso-etp-carona">01 de Janeiro de </span> {{=ano}}.
+                                    <br>{{=configuration.get('app.orgcidade')+"/"+configuration.get('app.orgestadoabrev')}}, <span id="dataextenso-etp-carona">01 de Janeiro de </span> {{=ano}}.
                                     <br>
                                     <br>
                                     <br>
@@ -1227,7 +1303,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -1251,7 +1327,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    Justifico a necessidade da aquisição motivada por ser o material necessário para equipar as instalações/pavilhões do {{=configuration.get('app.omextenso')}}.
+                                    Justifico a necessidade da aquisição motivada por ser o material necessário para equipar as instalações/pavilhões do {{=configuration.get('app.orgextenso')}}.
                                 </div>
                                 <div class='col-md-1 offset-md-1' style="text-align:right">
                                     <p>3.
@@ -1268,7 +1344,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_etp_carona"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_etp_carona"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -1288,7 +1364,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>ANEXOS AO PROCESSO REQUISITÓRIO Nº{{=nr}} DO(A) {{=secao}}</b>
                                     <a href="#" title="Ajuda sobre os anexos necessários para o processo no modo 'Adesão'." class="text-decoration-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ajudaanexosadesao" aria-controls="ajudaanexosadesaoOptions">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -1370,7 +1446,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row">
@@ -1493,7 +1569,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                 </div>
                                 <div style="text-align:center;">
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_dispensa"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_dispensa"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                 </div>
                             </div>
                             <br><br>
@@ -1512,7 +1588,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row" style="text-align: center;">
@@ -1653,8 +1729,8 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         </tr>
                                         <tr>
                                             <td width="33%;" style="border:1px">____________<br>Requisitante</td>
-                                            <td width="33%;" style="border:1px">____________<br>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</td>
-                                            <td width="33%;" style="border:1px">____________<br>Ordenador de Despesas <span id="odsubstituto_pedido_dispensa"></span> do {{=configuration.get('app.omextenso')}}</td>
+                                            <td width="33%;" style="border:1px">____________<br>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</td>
+                                            <td width="33%;" style="border:1px">____________<br>Ordenador de Despesas <span id="odsubstituto_pedido_dispensa"></span> do {{=configuration.get('app.orgextenso')}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -1675,7 +1751,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>MAPA COMPARATIVO DE PREÇO<br><br>Referente a Requisição nº {{=nr}}/{{=ano}} da {{=secao}} de <span id="dataextenso-comparativo-dispensa">01 de Janeiro</span> de {{=ano}}</b>
                                 </div>
                             </div>
@@ -1747,7 +1823,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>JUSTIFICATIVA DE AQUISIÇÃO<br><br>Referente a Requisição nº {{=nr}}/{{=ano}} da {{=secao}} de <span id="dataextenso-justificativa-dispensa">01 de Janeiro</span> de {{=ano}}</b>
                                 </div>
                             </div>
@@ -1756,7 +1832,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     <br>
                                     <p>A) FINALIDADE DA AQUISIÇÃO</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="var" id="finalidade-justificativa-dispensa" data-toggle="popover-x" data-target="#finalidade-justificativa-dispensa_popover" data-placement="top">A presente requisição tem por finalidade atender as demandas de serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.omabrev')}}.</span>
+                                    <span class="var" id="finalidade-justificativa-dispensa" data-toggle="popover-x" data-target="#finalidade-justificativa-dispensa_popover" data-placement="top">A presente requisição tem por finalidade atender as demandas de serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.orgabrev')}}.</span>
                                     <br><br>
                                     <p>B) ONDE SERÁ EMPREGADO</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -1789,7 +1865,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <div id="ass_od_justificativa_dispensa" >
@@ -1797,7 +1873,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_justificativa_dispensa"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_justificativa_dispensa"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                 </div>
@@ -1817,7 +1893,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                              <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}<br><br>
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}<br><br>
                                     <b>ESTUDO DE VIABILIDADE<br><br>Adesão à ARP Pregão nº
                                     <span class="var" id="nrarp-etp-dispensa" data-toggle="popover-x" data-target="#nrarp-etp-dispensa_popover" data-placement="top">00045/2020 - PMB - UG: 160482</span></b>
                                 </div>
@@ -1840,7 +1916,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     , cujo objeto é o registro de preços para aquisição de
                                     <span class="var" id="desc112-etp-dispensa" data-toggle="popover-x" data-target="#desc112-etp-dispensa_popover" data-placement="top">
                                         SERVIÇO DE TELEFONIA VIA SATÉLITE  PARA O EQUIPAMENTO IRIDIUM
-                                    </span> conforme condições, quantidades e exigências estabelecidas, para atender às necessidades do {{=configuration.get('app.omextenso')}}, UASG {{=configuration.get('app.ug')}}, na condição de entidade não participante, em conformidade com os termos do Edital e anexos, do aludido pregão eletrônico.
+                                    </span> conforme condições, quantidades e exigências estabelecidas, para atender às necessidades do {{=configuration.get('app.orgextenso')}}, UASG {{=configuration.get('app.ug')}}, na condição de entidade não participante, em conformidade com os termos do Edital e anexos, do aludido pregão eletrônico.
                                 </div>
                             </div>
                             <div class='row' style='margin-top:20px'>
@@ -1897,7 +1973,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                 <div class="col-md-9" style="text-align:justify">
                                     Conforme os termos contidos na legislação vigente, foi decidido adquirir os serviços descritos no item 2 deste termo, com objetivo de atender as demandas de serviço
                                     <span id="desc31-etp-dispensa" class='var' data-toggle="popover-x" data-target="#desc31-etp-dispensa_popover" data-placement="top">
-                                    de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.omabrev')}} , por meio do pregão eletrônico no 00045/20, gerenciado pela 1ª Brigada de Infantaria de Selva UASG (160482),
+                                    de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.orgabrev')}} , por meio do pregão eletrônico no 00045/20, gerenciado pela 1ª Brigada de Infantaria de Selva UASG (160482),
                                     </span>
                                     na qualidade de UASG não participante.
                                 </div>
@@ -1981,7 +2057,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    A solicitação de adesão visa à desburocratização e o uso do poder de compra, possibilitando a obtenção de menores preços nas contratações do {{=configuration.get('app.omabrev')}} e da Administração Pública.
+                                    A solicitação de adesão visa à desburocratização e o uso do poder de compra, possibilitando a obtenção de menores preços nas contratações do {{=configuration.get('app.orgabrev')}} e da Administração Pública.
                                 </div>
                             </div>
                             <div class='row' style='margin-top:20px'>
@@ -2048,14 +2124,14 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    Os materiais deverão ser entregues na cidade de {{=configuration.get('app.omcidade')+"/"+configuration.get('app.omestadoabrev')}}, em local, data e horário estabelecido por esta Organização Militar, {{=configuration.get('app.omextenso').upper()}}, localizado no seguinte endereço: {{=", ".join(configuration.get('app.omendereco'))}}.
+                                    Os materiais deverão ser entregues na cidade de {{=configuration.get('app.orgcidade')+"/"+configuration.get('app.orgestadoabrev')}}, em local, data e horário estabelecido por esta Organização Militar, {{=configuration.get('app.timbre_linha4')}}}, localizado no seguinte endereço: {{=", ".join(configuration.get('app.orgendereco'))}}.
                                 </div>
                                 <div class='col-md-1 offset-md-1' style="text-align:right">
                                     <p>5.2.
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    O responsável pelo recebimento será o Almoxarifado do {{=configuration.get('app.omextenso')+" — "+configuration.get('app.omabrev')}}, quando será verificada a conformidade entre o que foi empenhado, constante da nota de empenho e o que está sendo fornecido, constante da nota fiscal.
+                                    O responsável pelo recebimento será o Almoxarifado do {{=configuration.get('app.orgextenso')+" — "+configuration.get('app.orgabrev')}}, quando será verificada a conformidade entre o que foi empenhado, constante da nota de empenho e o que está sendo fornecido, constante da nota fiscal.
                                 </div>
                             </div>
                              <div class='row' style='margin-top:20px'>
@@ -2099,7 +2175,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             </div>
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
-                                    <br>{{=configuration.get('app.omcidade')+"/"+configuration.get('app.omestadoabrev')}}, <span id="dataextenso-etp-dispensa">01 de Janeiro de </span> {{=ano}}.
+                                    <br>{{=configuration.get('app.orgcidade')+"/"+configuration.get('app.orgestadoabrev')}}, <span id="dataextenso-etp-dispensa">01 de Janeiro de </span> {{=ano}}.
                                     <br>
                                     <br>
                                     <br>
@@ -2117,7 +2193,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -2141,7 +2217,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    Justifico a necessidade da aquisição motivada por ser o material necessário para equipar as instalações/pavilhões do {{=configuration.get('app.omextenso')}}.
+                                    Justifico a necessidade da aquisição motivada por ser o material necessário para equipar as instalações/pavilhões do {{=configuration.get('app.orgextenso')}}.
                                 </div>
                                 <div class='col-md-1 offset-md-1' style="text-align:right">
                                     <p>3.
@@ -2158,7 +2234,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -2179,7 +2255,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>ANEXOS AO PROCESSO REQUISITÓRIO Nº{{=nr}} DO(A) {{=secao}}</b>
                                     <a href="#" title="Ajuda sobre os anexos necessários para o processo no modo 'Dispensa'." class="text-decoration-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ajudaanexosdispensa" aria-controls="ajudaanexosdispensaOptions">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -2262,7 +2338,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row">
@@ -2400,7 +2476,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                 </div>
                                 <div style="text-align:center;">
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_inex"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_inex"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                 </div>
                             </div>
                             <br><br>
@@ -2419,7 +2495,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row" style="text-align: center;">
@@ -2502,8 +2578,8 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         </tr>
                                         <tr>
                                             <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Requisitante</td>
-                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</td>
-                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Ordenador de Despesas <span id="odsubstituto_pedido_inex"></span> do {{=configuration.get('app.omextenso')}}</td>
+                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</td>
+                                            <td width="33%;" style="border:1px"><div style="font-size: 5px;">______________________________________</div>Ordenador de Despesas <span id="odsubstituto_pedido_inex"></span> do {{=configuration.get('app.orgextenso')}}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -2524,7 +2600,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>MAPA COMPARATIVO DE PREÇO<br><br>Referente a Requisição nº {{=nr}}/{{=ano}} da {{=secao}} de <span id="dataextenso-comparativo-inex">01 de Janeiro</span> de {{=ano}}</b>
                                 </div>
                             </div>
@@ -2602,7 +2678,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>JUSTIFICATIVA DE AQUISIÇÃO<br><br>Referente a Requisição nº {{=nr}}/{{=ano}} da {{=secao}} de <span id="dataextenso-justificativa-inex">01 de Janeiro</span> de {{=ano}}</b>
                                 </div>
                             </div>
@@ -2611,7 +2687,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     <br>
                                     <p>A) FINALIDADE DA AQUISIÇÃO</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <span class="var" id="finalidade-justificativa-inex" data-toggle="popover-x" data-target="#finalidade-justificativa-inex_popover" data-placement="top">A presente requisição tem por finalidade atender as demandas de serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.omabrev')}}.</span>
+                                    <span class="var" id="finalidade-justificativa-inex" data-toggle="popover-x" data-target="#finalidade-justificativa-inex_popover" data-placement="top">A presente requisição tem por finalidade atender as demandas de serviço de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.orgabrev')}}.</span>
                                     <br><br>
                                     <p>B) ONDE SERÁ EMPREGADO</p>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -2646,7 +2722,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -2655,7 +2731,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_justificativa_inex"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_justificativa_inex"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -2676,7 +2752,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                              <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}<br><br>
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}<br><br>
                                     <b>ESTUDO DE VIABILIDADE<br><br><span class="var" id="nrarp-etp-inex" data-toggle="popover-x" data-target="#nrarp-etp-inex_popover" data-placement="top">Inexigibilidade para aquisição de XXXXXXXXX</span></b>
                                 </div>
                             </div>
@@ -2698,7 +2774,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     , cujo objeto é o registro de preços para aquisição de
                                     <span class="var" id="desc112-etp-inex" data-toggle="popover-x" data-target="#desc112-etp-inex_popover" data-placement="top">
                                         SERVIÇO DE TELEFONIA VIA SATÉLITE  PARA O EQUIPAMENTO IRIDIUM
-                                    </span> conforme condições, quantidades e exigências estabelecidas, para atender às necessidades do {{=configuration.get('app.omextenso')}}, UASG {{=configuration.get('app.ug')}}, na condição de entidade não participante, em conformidade com os termos do Edital e anexos, do aludido pregão eletrônico.
+                                    </span> conforme condições, quantidades e exigências estabelecidas, para atender às necessidades do {{=configuration.get('app.orgextenso')}}, UASG {{=configuration.get('app.ug')}}, na condição de entidade não participante, em conformidade com os termos do Edital e anexos, do aludido pregão eletrônico.
                                 </div>
                             </div>
                             <div class='row' style='margin-top:20px'>
@@ -2755,7 +2831,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                 <div class="col-md-9" style="text-align:justify">
                                     Conforme os termos contidos na legislação vigente, foi decidido adquirir os serviços descritos no item 2 deste termo, com objetivo de atender as demandas de serviço
                                     <span id="desc31-etp-inex" class='var' data-toggle="popover-x" data-target="#desc31-etp-inex_popover" data-placement="top">
-                                    de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.omabrev')}} , por meio do pregão eletrônico no 00045/20, gerenciado pela 1ª Brigada de Infantaria de Selva UASG (160482),
+                                    de  telefonia via satélite da Divisão de Geoinformação do {{=configuration.get('app.orgabrev')}} , por meio do pregão eletrônico no 00045/20, gerenciado pela 1ª Brigada de Infantaria de Selva UASG (160482),
                                     </span>
                                     na qualidade de UASG não participante.
                                 </div>
@@ -2839,7 +2915,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    A solicitação de adesão visa à desburocratização e o uso do poder de compra, possibilitando a obtenção de menores preços nas contratações do {{=configuration.get('app.omabrev')}} e da Administração Pública.
+                                    A solicitação de adesão visa à desburocratização e o uso do poder de compra, possibilitando a obtenção de menores preços nas contratações do {{=configuration.get('app.orgabrev')}} e da Administração Pública.
                                 </div>
                             </div>
                             <div class='row' style='margin-top:20px'>
@@ -2905,13 +2981,13 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     <p>5.1.</p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    Os materiais deverão ser entregues na cidade de {{=configuration.get('app.omcidade')+"/"+configuration.get('app.omestadoabrev')}}, em local, data e horário estabelecido por esta Organização Militar, {{=configuration.get('app.omextenso').upper()}}, localizado no seguinte endereço: {{=", ".join(configuration.get('app.omendereco'))}}.
+                                    Os materiais deverão ser entregues na cidade de {{=configuration.get('app.orgcidade')+"/"+configuration.get('app.orgestadoabrev')}}, em local, data e horário estabelecido por esta Organização Militar, {{=configuration.get('app.timbre_linha4')}}}, localizado no seguinte endereço: {{=", ".join(configuration.get('app.orgendereco'))}}.
                                 </div>
                                 <div class='col-md-1 offset-md-1' style="text-align:right">
                                     <p>5.2.</p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    O responsável pelo recebimento será o Almoxarifado do {{=configuration.get('app.omextenso')+" — "+configuration.get('app.omabrev')}}, quando será verificada a conformidade entre o que foi empenhado, constante da nota de empenho e o que está sendo fornecido, constante da nota fiscal.
+                                    O responsável pelo recebimento será o Almoxarifado do {{=configuration.get('app.orgextenso')+" — "+configuration.get('app.orgabrev')}}, quando será verificada a conformidade entre o que foi empenhado, constante da nota de empenho e o que está sendo fornecido, constante da nota fiscal.
                                 </div>
                             </div>
                              <div class='row' style='margin-top:20px'>
@@ -2955,7 +3031,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             </div>
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
-                                    <br>{{=configuration.get('app.omcidade')+"/"+configuration.get('app.omestadoabrev')}}, <span id="dataextenso-etp-carona">01 de Janeiro de </span> {{=ano}}.
+                                    <br>{{=configuration.get('app.orgcidade')+"/"+configuration.get('app.orgestadoabrev')}}, <span id="dataextenso-etp-carona">01 de Janeiro de </span> {{=ano}}.
                                     <br>
                                     <br>
                                     <br>
@@ -2973,7 +3049,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Fiscal Administrativo do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -2997,7 +3073,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                     </p>
                                 </div>
                                 <div class="col-md-9" style="text-align:justify">
-                                    Justifico a necessidade da aquisição motivada por ser o material necessário para equipar as instalações/pavilhões do {{=configuration.get('app.omextenso')}}.
+                                    Justifico a necessidade da aquisição motivada por ser o material necessário para equipar as instalações/pavilhões do {{=configuration.get('app.orgextenso')}}.
                                 </div>
                                 <div class='col-md-1 offset-md-1' style="text-align:right">
                                     <p>3.
@@ -3014,7 +3090,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModal4" onclick="assinar(this)">Assinar</button>
                                     </div>
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_etp_inex"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_etp_inex"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                     <br>
                                     <br>
                                     <br>
@@ -3035,7 +3111,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-10 offset-md-1" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                     <br><br><b>ANEXOS AO PROCESSO REQUISITÓRIO Nº{{=nr}} DO(A) {{=secao}}</b>
                                     <a href="#" title="Ajuda sobre os anexos necessários para o processo no modo 'Inexigibilidade'." class="text-decoration-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#ajudaanexosinex" aria-controls="ajudaanexosinexOptions">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -3106,7 +3182,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                             <div class='row' style='margin-top:20px'>
                                 <div class="col-md-4 offset-md-4" style="text-align:center">
                                     <img src="{{=URL('static','images/brasao_republica.png', scheme=True, host=True)}}" alt="brasao">
-                                    <br>MINISTÉRIO DA DEFESA<br>EXÉRCITO BRASILEIRO<br>{{=configuration.get('app.omsup').upper()}}<br>{{=configuration.get('app.omextenso').upper()}}
+                                    <br>{{=configuration.get('app.timbre_linha1')}}<br>{{=configuration.get('app.timbre_linha2')}}<br>{{=configuration.get('app.timbre_linha3')}}<br>{{=configuration.get('app.timbre_linha4')}}}
                                 </div>
                             </div>
                             <div class="row">
@@ -3204,7 +3280,7 @@ V - órgão não participante - órgão ou entidade da administração pública 
                                 </div>
                                 <div style="text-align:center;">
                                     <span>___________________________________________________</span>
-                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_anul"></span> do {{=configuration.get('app.omextenso')}}</span>
+                                    <br><span>Ordenador de Despesas <span id="odsubstituto_pr_anul"></span> do {{=configuration.get('app.orgextenso')}}</span>
                                 </div>
                             </div>
                             <br><br>

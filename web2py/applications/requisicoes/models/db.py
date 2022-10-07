@@ -17,15 +17,23 @@ db = DAL(configuration.get('db.uri'),
          pool_size=configuration.get('db.pool_size'),
          migrate_enabled=configuration.get('db.migrate'),
          check_reserved=['all'])
-OMENDERECO = ", ".join(configuration.get('app.omendereco'))
+OMENDERECO = ", ".join(configuration.get('app.orgendereco'))
 BASE_DN    = ",".join(configuration.get('sped.base_dn'))
 ALLOWED    = configuration.get('app.allowed_ext')
 MAXSIZE    = int(configuration.get('app.maxtotalfsize'))
-
+try:
+    CHANGELOG = json.loads(open(os.path.join(request.folder, 'private', 'changelog.json')).read())
+except Exception as e:
+    CHANGELOG = {"latest":str(e)}
 try:
     VARS = json.loads(open(os.path.join(request.folder, 'private', 'vars.json')).read())
 except Exception as e:
     VARS = {"erro":str(e)}
+LDAP_URI = "postgres2:psycopg2://"+os.environ.get("POST_USER","postgres")+":"+os.environ.get("POST_PASSWORD","secret")+"@"+os.environ.get("POST_HOST","post")+":5432/"
+DBPG_URI = LDAP_URI + os.environ.get("POST_APPDB","requisicoes")
+LDAP_URI += os.environ.get("POST_AUTHDB","authdb")
+# postgres2:psycopg2://postgres:secret@post:5432/requisicoes
+
 # -------------------------------------------------------------------------
 # by default give a view/generic.extension to all actions from localhost
 # none otherwise. a pattern can be 'controller/function.extension'
@@ -94,12 +102,12 @@ if configuration.get('sped.uri'):
         dbpgsped = None
 else:
     try:
-        dbpgsped = DAL(configuration.get('ldap.uri'),
+        dbpgsped = DAL(LDAP_URI,
                     pool_size=configuration.get('ldap.pool_size'),
                     migrate_enabled=True,
                     check_reserved=['all'])
     except:
-        dbpgsped = DAL(configuration.get('ldap.uri'),
+        dbpgsped = DAL(LDAP_URI,
                     pool_size=configuration.get('ldap.pool_size'),
                     migrate_enabled=False,
                     check_reserved=['all'])
@@ -156,7 +164,7 @@ dbpgsped.define_table('usuario_secao',
                     )
 
 
-dbpg = DAL(configuration.get('dbpg.uri'),
+dbpg = DAL(DBPG_URI,
             pool_size=configuration.get('dbpg.pool_size'),
             migrate_enabled=configuration.get('dbpg.migrate'),
             check_reserved=['all'])

@@ -1,0 +1,141 @@
+{
+    "latest":"0.9.6",
+    "versions":{
+        "0.9.6":{
+            "modified_date":"2022-10-07",
+            "description":"Melhorias na segurança e versionamento.",
+            "add":["Versionamento via json externo."],
+            "change":["ldap exposto apenas na subrede privada."],
+            "bug_fix":[]
+        },
+        "0.8.6":{
+            "modified_date":"2022-10-06",
+            "description":"Ajuda para os Anexos da Dispensa e Inexigiblidade.",
+            "add":[],
+            "change":[],
+            "bug_fix":[]
+        },
+        "0.7.6":{
+            "modified_date":"2022-10-01",
+            "description":"Uso do docker.",
+            "add":[
+                "Aplicação em python:3.7-slim-buster",
+                "Banco em postgres:12-alpine",
+                "LDAP em osixia/openldap:1.5.0",
+                "LDAPADMIN em osixia/phpldapadmin:0.9.0"
+            ],
+            "change":[],
+            "bug_fix":[]
+        },
+        "0.6.6":{
+            "modified_date":"2022-09-20",
+            "description":"Atualizado para Python3 - Web2Py 2.22.5.",
+            "add":[],
+            "change":["migrado para Python3 - Web2Py 2.22.5"],
+            "bug_fix":["Bugs diversos."]
+        },
+        "0.5.5":{
+            "modified_date":"2022-08-03",
+            "description":"Correção de BUGs.",
+            "add":[],
+            "change":[],
+            "bug_fix":["Corrigido os popups de edição que ainda apareciam para usuários sem a devida permissão, a partir das segundas linhas criadas no pedido e no mapa comparativo."]
+        },
+        "0.5.4":{
+            "modified_date":"2022-07-25",
+            "description":"Adição de ajudas em partes dos documentos.",
+            "add":["Ajuda nos anexos da adesão."],
+            "change":["Cor do documento em execução de amarelo para transparente."],
+            "bug_fix":[]
+        },
+        "0.4.4":{
+            "modified_date":"2022-05-25",
+            "description":"Adição de ajudas em partes dos documentos. ",
+            "add":["Ajuda na escolha do assunto.","Ajuda na escolha do objetivo estratégico.","link para o comprasnet relacionado a UASG informada no pedido."],
+            "change":[],
+            "bug_fix":[]
+        },
+        "0.3.4":{
+            "modified_date":"2022-04-11",
+            "description":"Substituição de variáveis.",
+            "add":[],
+            "change":["Substituídas as variáveis de dupla escolha 'aquisicao/contratacao' e 'material/servico' por 'assunto' com 5 escolhas."],
+            "bug_fix":[]
+        },
+        "0.2.4":{
+            "modified_date":"2022-04-04",
+            "description":" Correção de BUGs de codificação de caracteres UTF-8.",
+            "add":[],
+            "change":[],
+            "bug_fix":["Criada uma proteção para leitura correta dos dados nos casos em que caracteres UTF-8, através de outros clientes PostgreSQL, eram inseridos na forma \\xAB em vez de \\u00AB."]
+        },
+        "0.2.3":{
+            "modified_date":"2022-03-22",
+            "description": "Correção de BUGs de codificação de caracteres UTF-8 e adição de OD Substituto.",
+            "add":["Configuração pela SALC do OD Substituto."],
+            "change":[
+                "Página de configuração.",
+                "Template .odt dos modos Gerente e Carona."
+            ],
+            "bug_fix":["Variáveis strings em ASCII com possibilidade de caracters UTF-8."]
+        },
+        "0.1.2":{
+            "modified_date":"2022-03-08",
+            "description":" Correção na interação entre o backend e frontend.",
+            "add":[
+                "Proteção contra variáveis registradas com caracteres de \\escape inválidos.",
+                "Log de avisos no frontend exibe os erros que o servidor teve que lidar."
+            ],
+            "change":[
+                "Página de perfil exibe as contas, seções, privilégios e nome do usuário logado.",
+                "Variáveis registradas com aspas duplas são trocadas por aspas simples para evitar erros no frontend."
+            ],
+            "bug_fix":[
+                "Variáveis registradas com quebra de Linha (ENTER) lidas incorretamente no frontend."
+            ]
+        },
+        "0.1.1":{
+            "modified_date":"2022-03-03",
+            "description":"Adaptação voltada aos Fiscais de contrato.",
+            "add":["Nova variável no campo Assunto para se adequar às requisições de Fiscais de Contrato."],
+            "change":[],
+            "bug_fix":[]
+        },
+        "0.0.1":{
+            "modified_date":"2022-02-22",
+            "description":" Pequenas correções na interação com os documentos. ",
+            "add":[],
+            "change":[],
+            "bug_fix":[
+                "Popover no campo Somatório do Pedido no modo Inexibilidade.",
+                "Template .odt dos modos Carona e Inexibilidade.",
+                "Título no pedido de material/serviço sincronizado com a respectiva variável."
+            ]
+        },
+        "0.0.0":{
+            "modified_date":"2022-02-21",
+            "description":"Desenvolvimento baseado na visão de PRs feitas pela DGEO/4ºCGEO.",
+            "add":[
+                "LOGIN: ligado ao LDAP do SPED local.",
+                "PERMISSÕES: ligadas às contas de SPED do usuário logado.",
+                "PROCESSOS: ligadas às seções existentes no SPED.",
+                "PROCESSOS: numeração ligada ao ano e à seção.",
+                "ASSINATURAS: requisitante, fiscal e od separados por modo e documento.",
+                "ASSINATURAS FISCAL/OD: autorizadas pela conta do SPED.",
+                "Validar/Invalidar pela SALC.",
+                " Página de pesquisa.",
+                "Página de perfil.",
+                "Página de configuração.",
+                "Campo de pesquisa.",
+                "Pendênicas SALC/FISCAL/OD.",
+                "Exportar (.odt).",
+                "Comentários.",
+                "Clonar este processo."
+            ],
+            "change":[],
+            "bug_fix":[]
+        }
+    }
+    
+  }
+  

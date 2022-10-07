@@ -438,7 +438,7 @@ select[multiple*="multiple"]    {
     </li>
     <li class="nav navbar-nav" >
         <a href="{{=URL('default','index')}}" style="text-decoration: none;"><h5 class="nav-link" style="color:white;">PROCESSOS REQUISITÓRIOS</h5></a>
-        <b style="color: antiquewhite;font-size: small;cursor: help;" data-bs-toggle="modal" data-bs-target="#myModal7">1.5.5</b>
+        <b style="color: antiquewhite;font-size: small;cursor: help;" data-bs-toggle="modal" data-bs-target="#myModal7">{{=CHANGELOG['latest']}}</b>
     </li>
     {{block lista_acoes}}
     {{end}}
@@ -516,127 +516,36 @@ select[multiple*="multiple"]    {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+          {{for k,v in CHANGELOG['versions'].items():}}
            <div>
-              <h4> [1.5.5] - 2022-08-03</h4>
-              <span>Correção de BUGs.</span>
-              <h5>Corrigido</h5>
+              <h4 style="margin-bottom: 0;"> [{{=k}}] - {{=v['modified_date']}}</h4>
+              <span>{{=v['description']}}</span>
+              {{if v['add']:}}
+              <h5>Adicionado:</h5>
               <ul>
-                  <li>Corrigido os popups de edição que ainda apareciam para usuários sem a devida permissão, a partir das segundas linhas criadas no pedido e no mapa comparativo.</li>
+                  {{for c in v['add']:}}
+                  <li>{{=c}}</li>
+                  {{pass}}
               </ul>
+              {{pass}}
+              {{if v['change']:}}
+              <h5>Modificado:</h5>
+              <ul>
+                  {{for c in v['change']:}}
+                  <li>{{=c}}</li>
+                  {{pass}}
+              </ul>
+              {{pass}}
+              {{if v['bug_fix']:}}
+              <h5>Corrigido:</h5>
+              <ul>
+                  {{for c in v['bug_fix']:}}
+                  <li>{{=c}}</li>
+                  {{pass}}
+              </ul>
+              {{pass}}
           </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.5.4] - 2022-07-25</h4>
-              <span>Adição de ajudas em partes dos documentos.</span>
-              <h5>Adicionado</h5>
-              <ul>
-                  <li>Ajuda nos anexos da adesão.</li>
-              </ul>
-               <h5>Modificado</h5>
-              <ul>
-                  <li>Cor do documento em execução de amarelo para transparente.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.4.4] - 2022-05-25</h4>
-              <span>Adição de ajudas em partes dos documentos.</span>
-              <h5>Adicionado</h5>
-              <ul>
-                  <li>Ajuda na escolha do assunto.</li>
-                  <li>Ajuda na escolha do objetivo estratégico.</li>
-                  <li>link para o comprasnet relacionado a UASG informada no pedido.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.3.4] - 2022-04-11</h4>
-              <span>Substituição de variáveis.</span>
-              <h5>Modificado</h5>
-              <ul>
-                  <li>Substituídas as variáveis de dupla escolha 'aquisicao/contratacao' e 'material/servico' por 'assunto' com 5 escolhas.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.2.4] - 2022-04-04</h4>
-              <span>Correção de BUGs de codificação de caracteres UTF-8.</span>
-              <h5>Corrigido</h5>
-              <ul>
-                  <li>Criada uma proteção para leitura correta dos dados nos casos em que caracteres UTF-8, através de outros clientes PostgreSQL, eram inseridos na forma \xAB em vez de \u00AB.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.2.3] - 2022-03-22</h4>
-              <span>Correção de BUGs de codificação de caracteres UTF-8 e adição de OD Substituto.</span>
-              <h5>Adicionado</h5>
-              <ul>
-                  <li>Configuração pela SALC do OD Substituto.</li>
-              </ul>
-              <h5>Modificado</h5>
-              <ul>
-                  <li>Página de configuração.</li>
-                  <li>Template .odt dos modos Gerente e Carona.</li>
-              </ul>
-              <h5>Corrigido</h5>
-              <ul>
-                  <li>Variáveis strings em ASCII com possibilidade de caracters UTF-8.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.1.2] - 2022-03-08</h4>
-              <span>Correção na interação entre o backend e frontend.</span>
-              <h5>Adicionado</h5>
-              <ul>
-                  <li>Proteção contra variáveis registradas com caracteres de \escape inválidos.</li>
-                  <li>Log de avisos no frontend exibe os erros que o servidor teve que lidar.</li>
-              </ul>
-              <h5>Modificado</h5>
-              <ul>
-                  <li>Página de perfil exibe as contas, seções, privilégios e nome do usuário logado.</li>
-                  <li>Variáveis registradas com aspas duplas são trocadas por aspas simples para evitar erros no frontend.</li>
-              </ul>
-              <h5>Corrigido</h5>
-              <ul>
-                  <li>Variáveis registradas com quebra de Linha (ENTER) lidas incorretamente no frontend.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.1.1] - 2022-03-03</h4>
-              <span>Adaptação voltada aos Fiscais de contrato.</span>
-              <h5>Adicionado</h5>
-              <ul>
-                  <li>Nova variável no campo Assunto para se adequar às requisições de Fiscais de Contrato.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.0.1] - 2022-02-22</h4>
-              <span>Pequenas correções na interação com os documentos.</span>
-              <h5>Corrigido</h5>
-              <ul>
-                  <li>Popover no campo Somatório do Pedido no modo Inexibilidade.</li>
-                  <li>Template .odt dos modos Carona e Inexibilidade.</li>
-                  <li>Título no pedido de material/serviço sincronizado com a respectiva variável.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
-          <div>
-              <h4> [1.0.0] - 2022-02-21</h4>
-              <span>Desenvolvimento baseado na visão de PRs feitas pela DGEO/4ºCGEO.</span>
-              <h5>Adicionado</h5>
-              <ul>
-                  <li>LOGIN: ligado ao LDAP do SPED local.</li>
-                  <li>PERMISSÕES: ligadas às contas de SPED do usuário logado.</li>
-                  <li>PROCESSOS: ligadas às seções existentes no SPED.</li>
-                  <li>PROCESSOS: numeração ligada ao ano e à seção.</li>
-                  <li>ASSINATURAS: requisitante, fiscal e od separados por modo e documento.</li>
-                  <li>ASSINATURAS FISCAL/OD: autorizadas pela conta do SPED.</li>
-                  <li>Validar/Invalidar pela SALC.</li>
-                  <li>Página de pesquisa.</li>
-                  <li>Página de perfil.</li>
-                  <li>Página de configuração.</li>
-                  <li>Campo de pesquisa.</li>
-                  <li>Pendênicas SALC/FISCAL/OD.</li>
-                  <li>Exportar (.odt).</li>
-                  <li>Comentários.</li>
-                  <li>Clonar este processo.</li>
-              </ul>
-          </div> <!-- end <ul><li></li></ul> -->
+          {{pass}}
       </div>
 
     </div><!-- /.modal-content -->

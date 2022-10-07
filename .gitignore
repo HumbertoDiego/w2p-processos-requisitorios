@@ -1,4 +1,3 @@
-web2py/scripts/*
 __pycache__/
 *.pyc
 web2py/applications/requisicoes/uploads/*

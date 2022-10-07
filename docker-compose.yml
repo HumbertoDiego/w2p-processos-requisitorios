@@ -16,7 +16,8 @@ services:
       POST_HOST: post
       POST_USER: postgres
       POST_PASSWORD: secret
-      POST_DB: requisicoes
+      POST_APPDB: requisicoes
+      POST_AUTHDB: authdb
     restart: always
   post:
     image: postgres:12-alpine
@@ -37,9 +38,6 @@ services:
     container_name: ldap
     networks:
       - overlay
-    ports:
-      - 389:389
-      - 636:636
     volumes:
       - ldap-data:/var/lib/ldap
       - ldap-conf:/etc/ldap/slapd.d
