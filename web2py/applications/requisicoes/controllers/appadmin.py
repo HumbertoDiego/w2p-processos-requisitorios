@@ -82,7 +82,11 @@ def get_databases(request):
         except:
             cond = isinstance(value, SQLDB)
         if cond:
-            dbs[key] = value
+            if configuration.get("sped.uri", False):
+                if key != "dbpgsped":
+                    dbs[key] = value
+            else:
+                dbs[key] = value
     return dbs
 
 databases = get_databases(None)

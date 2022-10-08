@@ -1,5 +1,8 @@
 # w2p-processos-requisitorios
-App para montagem de processos requisitórios para aquisição de bens ou serviços via pregão gerente/participante, adesão à pregão, dispensa de licitação e/ou inexigibilidade. 
+App para montagem de processos requisitórios para subsidiar o empenho para aquisição de bens ou serviços via pregão gerente/participante, adesão à pregão, dispensa de licitação e/ou inexigibilidade. 
+
+<img src="imgs/inicio.jpg" alt="home"/>
+
 
 ## Requisitos
 * Docker: 
@@ -14,7 +17,8 @@ App para montagem de processos requisitórios para aquisição de bens ou servi�
     apt install docker-compose
     ```
 * Sistema SPED (opcional):
-  * O Sistema de Protocolo Eletrônico de Documentos ( [SPED](https://softwarepublico.gov.br/social/sped "SPED") ) é um software público de 2008 que visa a digitalização do trâmite de documentos internamente a uma organização. Nele é implementado a aplicação em conjunto com um servidor **LDAP** e um banco **PostgreSQL**.
+  * O Sistema de Protocolo Eletrônico de Documentos ( [SPED](https://softwarepublico.gov.br/social/sped "SPED") ) é um software público de protocolos de documenntos concebido em 2008 e aperfeiçoado desde então. Visa a digitalização do trâmite de documentos internamente a uma organização. Nele é implementado a aplicação em conjunto com um servidor **LDAP** e um banco **PostgreSQL**.
+  * O app PROCESSOS-REQUISITORIOS acompanha um banco em postgres:12-alpine, um serviço LDAP da imagem docker osixia/openldap:1.5.0 e um serviço LDAPADMIN da imagem docker osixia/phpldapadmin:0.9.0. Olhe a seção __Migração para SPED__ para aproveitar o sistema LDAP e Banco legado de sua organização.
 
 ## Instalação
 
@@ -93,15 +97,15 @@ Organizações que utilizam o SPED costumam trocar as contas de pessoas a medida
 ## Fluxo de tabalho
 
 REQUISITANTE:
-1. Cria um documento
+1. Cria um processo
 2. Escolhe um modo de compra dentre:
     - Gerente/Participante;
     - Adesão;
     - Dispensa de licitação;
     - Inexigibilidade;
     - Anulação de empenho.
-3. Busca dados e anexos para completar os processos requisitórios
-4. Assina nos campos *Requisitante* e aguarda a *Validação* da SALC
+3. Busca dados e anexos para completar os documentos do processo requisitório
+4. Assina nos campos *Requisitante* dos documentos e aguarda a *Validação* do processo pela SALC
 5. O processo entra em __Pendências da SALC__
 
 SALC
@@ -129,8 +133,68 @@ SALC
 
 ## Documentos
 
+O conjunto de documentos necessários depende do modo da aquisição.
+
+1. Modo de aquisição por pregão em que a organização é **gerente ou participante**:
+    * _Parte Requisitória_: É a formalização da demanda, contem os objetivos da organização planejados em A-1, a origem e o valor do crédito, o tipo de empenho (ordinário ou estimativo) e um resumo do que será comprado;
+    * _Pedido_: Contém o detalhamento item a item do que será comprado. Dado o pregão e o item do mesmo, deve-se adequar as quantidades e valores dentro do crédito disponível, verificar a empresa, bem como se sua situação cadastral, fiscal e trabalhista permite empenho.
+2. Modo de aquisição por pregão em que a organização quer aderir (pegar **carona**) a um pregão existente de outro orgão:
+    * _Parte Requisitória_;
+    * _Pedido_;
+    * _Mapa comparativo de preços_: Resumo da pesquisa de preços que comprove a economicidade da aquisição pretendida;
+    * _Justificativa_: A justificativa deve expor com clareza a motivação para a aquisição, com robustez em dados técnicos e e expressar a vantagem na aquisição pelo modo escolhido;
+    * _Estudo preliminar_: Primeiro documento a ser confeccionado quando a aquisição não é por pregão próprio ou participante. Deve demonstrar a viabilidade, a eficiência e a economicidade da aquisição pelo modo escolhido.
+    * _Outros documentos em anexos_: Aqui são anexados outros documentos como comprovantes, pesquisas de preços, ofícios ou emails enviados e recebidos ou qualquer exigência específica de cada orgão de fiscalização contábil enquadrante. 
+3. Modo de aquisição por **dispensa de licitação**:
+    * _Parte Requisitória_;
+    * _Pedido/Mapa comparativo de preços_;
+    * _Justificativa_;
+    * _Outros documentos em anexos_.
+4. Modo de aquisição por **inexigibilidade**:
+    * _Parte Requisitória_;
+    * _Pedido_;
+    * _Mapa comparativo de preços_;
+    * _Justificativa_;
+    * _Estudo preliminar_;
+    * _Outros documentos em anexos_.
+5. Solicitação de **anulação** de empenho:
+    * _Parte Requisitória de anulação_: É formalização da extinção da demanda e seu motivo
+
 ## Configuração
+
+O operador com o perfil *Admin* ou *SALC* recebe um menu de usuário com opções extras, dentre elas **Configurações**, onde pode-se escolher outras contas (usuários) para possuir o perfil SALC, bem como, a conta que recebe o perfil Fiscal Administrativo, Ordenador de despesas e Ordenador de despesas substituto.
 
 ## Admin
 
+A senha escolhida no lugar de *secret* no arquivo Dockerfile permite o acesso à area *admin* do WEB2PY em <https://localhost/admin>. Ao editar a aplicação *requisicoes* tem-se acesso a todo o código fonte, bem como a edição de algumas tabelas do banco PostgreSQL.
+
+Os arquivos importantes são:
+
+1. `private/appconfig.ini`: Atribui valores para personalização do frontend da plataforma, por exemplo:
+    * timbre_linha1 valor default MINISTÉRIO DA DEFESA
+    * timbre_linha2 valor default EXÉRCITO BRASILEIRO
+    * timbre_linha3 valor default DCT - DSG
+    * timbre_linha4 valor default 4º CENTRO DE GEOINFORMAÇÃO
+    * allowed_ext valor default txt,ini,md,json,geojson,png,jpg,jpeg,odt,ods,odp,doc,docx,xls,xlsx,ppt,pptx,pdf,zip,rar,tar,gzip,gz,7z
+    * conta_admin valor default Admin,1
+    * maxtotalfsize valor default 8000
+    * url_creditos_disponveis valor default #
+    * url_modelo_solicitacao_aceite valor default #
+    * url_modelo_solicitacao_orcamento valor default #
+    * url_modelo_comprovante_exclusividade valor default #
+2. `views/default/index.html`: Recebe os valores de personalização através de código python embeded como em `{{=configuration.get('app.url_modelo_solicitacao_orcamento','#')}}` e ainda valores processados pelo controlador
+3. `controllers/default.py`: processa as requisições e prepara as variáveis para a resposta.
+4. `models/db.py`: Faz o ligação com os bancos de dados e o serviço LDAP
+
+Em <https://localhost/appadmin/> edita-se as tabelas da aplicação. Para uma implementação ao lado de um SPED legado, é bloqueado e não é seguro editar as tabelas listadas com o prefixo **dbpgsped** pois corre-se o risco de quebrar a lógica do Sistema SPED, caso contrário, a edição destas tabelas por este método é simplesmente necessária, para criar seções, contas (usuários), pessoas (que fazem o login e possuem entrada no LDAP), usuario_pessoa (ligação entre pessoas e suas contas) e usuario_secao (ligação entre as contas e as seções).
+
 ## Migração para SPED
+
+Para ligar a um serviço LDAP e a tabelas necessárias de um Sitema SPED é necessário adicionar a URI e o HOST em `private/appconfig.ini`:
+```
+...
+[sped]  
+host = <IP ou HOST>  
+uri  = postgres2:psycopg2://<USERNAME>:<PASSWORD>@<IP ou HOST>:5432/speddb  
+...
+```

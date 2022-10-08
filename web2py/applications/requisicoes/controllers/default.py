@@ -517,11 +517,11 @@ def api():
                     for id_usuario in conf.contas_salc:
                         if dbpgsped.usuario(id_usuario).nm_usuario==contadesteuser[1]:
                             is_salc=True
-                    if dbpgsped.usuario(conf.conta_fiscal).nm_usuario==contadesteuser[1]:
+                    if conf.conta_fiscal and dbpgsped.usuario(conf.conta_fiscal).nm_usuario==contadesteuser[1]:
                         is_fiscal=True
-                    if dbpgsped.usuario(conf.conta_od).nm_usuario==contadesteuser[1]:
+                    if conf.conta_od and dbpgsped.usuario(conf.conta_od).nm_usuario==contadesteuser[1]:
                         is_od=True
-                    if dbpgsped.usuario(conf.conta_odsubstituto).nm_usuario==contadesteuser[1]:
+                    if conf.conta_odsubstituto and dbpgsped.usuario(conf.conta_odsubstituto).nm_usuario==contadesteuser[1]:
                         is_odsubstituto=True
             if "_requisitante" in vars['campo']: autorizado = True
             elif "_fiscal" in vars['campo'] and is_fiscal: autorizado = True
