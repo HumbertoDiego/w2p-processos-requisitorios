@@ -20,7 +20,7 @@ def pop(**kargs):
     
     con2 = psycopg2.connect("dbname=requisicoes user=%s password=%s"%(user,senha))
     cur2 = con2.cursor()
-    cur2.execute("INSERT INTO configuracoes (contas_salc,conta_fiscal,conta_od) VALUES (%s)", ([id_usuario],id_usuario,id_usuario))
+    cur2.execute("INSERT INTO configuracoes (contas_salc,conta_fiscal,conta_od) VALUES (%s,%s,%s)", ([id_usuario],id_usuario,id_usuario))
     con2.commit()
     # Close communication with the database
     cur.close()

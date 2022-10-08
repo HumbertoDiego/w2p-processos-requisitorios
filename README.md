@@ -3,7 +3,6 @@ App para montagem de processos requisitórios para subsidiar o empenho para aqui
 
 <img src="imgs/inicio.jpg" alt="home"/>
 
-
 ## Requisitos
 * Docker: 
   * Windows:
@@ -19,6 +18,21 @@ App para montagem de processos requisitórios para subsidiar o empenho para aqui
 * Sistema SPED (opcional):
   * O Sistema de Protocolo Eletrônico de Documentos ( [SPED](https://softwarepublico.gov.br/social/sped "SPED") ) é um software público de protocolos de documenntos concebido em 2008 e aperfeiçoado desde então. Visa a digitalização do trâmite de documentos internamente a uma organização. Nele é implementado a aplicação em conjunto com um servidor **LDAP** e um banco **PostgreSQL**.
   * O app PROCESSOS-REQUISITORIOS acompanha um banco em postgres:12-alpine, um serviço LDAP da imagem docker osixia/openldap:1.5.0 e um serviço LDAPADMIN da imagem docker osixia/phpldapadmin:0.9.0. Olhe a seção __Migração para SPED__ para aproveitar o sistema LDAP e Banco legado de sua organização.
+
+## Objetivos 
+
+1. Promover a integração entre as seções demandadoras de compras e a seção de aquisição;
+2. Diminuir a perda de eficiência diante de rodízio de pessoal
+3. Promover a digitalização do trâmite de documentos internos de uma organização
+4. Melhorar a eficiênica na gestão do recurso público  
+
+## Funcionalidades
+ 
+1. Preenchimento de documentos de forma colaborativa;
+2. Manter uma memória de processos de compras que resultaram ou não numa aquisição;
+3. Assinatura de documentos via autenticação LDAP;
+4. Comentários dentro dos processos para informar a situação ou exigênicas a serem sanadas para andamento do processo;
+5. Exportar cada documento pra .odt, para manter operante modos tradicionais (imprimir-assinar-escanear) durante o periodo de transição para a digitalização total. 
 
 ## Instalação
 
@@ -59,38 +73,35 @@ Navegar para o PHPLDAPADMIN em _<https://localhost:6443/>_ (ou pelo IP da máqui
 
 <img src="imgs/phpLDAPadmin.jpg" alt="phpLDAPadmin"/>
 
+## Uso
+
 ### Login e permissões
 
 Navegar para o app PROCESSOS-REQUISITORIOS em _<https://localhost/>_ (ou pelo IP da máquina onde o docker está instalado), efetue o login com as credenciais _capfoo_ e sua senha.
 
-Em __Novo Processo__, crie o 1º processo. Tente alterar as variáveis dos documentos ou assiná-los. Note que as permissões não são atreladas à pessoa que fez ao login e sim às contas que ele possui.
+Em __Novo Processo__, crie o 1º processo. Tente alterar as variáveis dos documentos ou assiná-los. Note que as permissões não são atreladas à pessoa que fez o login e sim às contas que ele possui.
 
-As permissões para o usuário NÃO logado são:
-  - Ver os processos, inclusive de outras seções e expotá-los para .odt
-  - Em __Ações__: Ver os Comentários
-
-Adicionalmente, as permissões para o usuário logado são:
-  - Em __Ações__: Comentar e clonar o processo para sua seção
-
-Adicionalmente, as permissões para o usuário logado e na aba de sua respectiva seção são:
-  - Criar novos processos
-  - Em __Ações__: Comentar, Validar ou Invalidar o processo
-  - Alterar as variáveis do processo, variáveis default realçadas de amarelo, variáveis já editadas de verde
-  - Assinar nos campos do requisitante
-
-Adicionalmente, as permissões para o usuário logado e com perfil de SALC:
-  - Em __Ações__: Comentar, Validar ou Invalidar o processo de qualquer seção
-  - No Dropdown do nome do usuário, atalho para __Configurações__ que abre o formulário onde pode-se adicionar todas as contas integrantes do perfil de SALC, e ainda, selecionar as contas que assinam pelo FISCAL, OD e OD substituto. 
-    - Existe uma __conta_admin__ configurada em `./web2py/applications/requisicoes/private/appconfig.ini` para evitar o lockout de membros da SALC
-  - No Dropdown do nome do usuário, atalho para __Pendências da SALC__ que lista documentos que ainda não foram validados ou invalidados para revisão
-  - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que lista para documentos validados que faltas essas assinaturas
-
-Adicionalmente, as permissões para o usuário logado e com perfil de Fiscal Administrativo ou Ordenador de Despesas ou Ordenador de Despesas Substituto:
-  - Assinar nos campos do fiscal ou do OD
-  - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que direcionam para docuemntos validados que faltas essas assinaturas
-
-Adicionalmente, as permissões para o usuário logado e com perfil de conta_admin:
-  - As mesmas do perfil de SALC
+1. As permissões para o usuário NÃO logado são:
+    - Ver os processos, inclusive de outras seções e expotá-los para .odt
+    - Em __Ações__: Ver os Comentários
+2. Adicionalmente, as permissões para o usuário logado são:
+    - Em __Ações__: Comentar e clonar o processo para sua seção
+3. Adicionalmente, as permissões para o usuário logado e na aba de sua respectiva seção são:
+    - Criar novos processos
+    - Em __Ações__: Comentar, Validar ou Invalidar o processo
+    - Alterar as variáveis do processo, variáveis default realçadas de amarelo, variáveis já editadas de verde
+    - Assinar nos campos do requisitante
+4. Adicionalmente, as permissões para o usuário logado e com perfil de SALC:
+    - Em __Ações__: Comentar, Validar ou Invalidar o processo de qualquer seção
+    - No Dropdown do nome do usuário, atalho para __Configurações__ que abre o formulário onde pode-se adicionar todas as contas integrantes do perfil de SALC, e ainda, selecionar as contas que assinam pelo FISCAL, OD e OD substituto. 
+      - Existe uma __conta_admin__ configurada em `./web2py/applications/requisicoes/private/appconfig.ini` para evitar o lockout de membros da SALC
+    - No Dropdown do nome do usuário, atalho para __Pendências da SALC__ que lista documentos que ainda não foram validados ou invalidados para revisão
+    - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que lista para documentos validados que faltas essas assinaturas
+5. Adicionalmente, as permissões para o usuário logado e com perfil de Fiscal Administrativo ou Ordenador de Despesas ou Ordenador de Despesas Substituto:
+    - Assinar nos campos do fiscal ou do OD
+    - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que direcionam para docuemntos validados que faltas essas assinaturas
+6. Adicionalmente, as permissões para o usuário logado e com perfil de conta_admin:
+    - As mesmas do perfil de SALC
 
 Organizações que utilizam o SPED costumam trocar as contas de pessoas a medida que necessitam, portanto, ao receber uma conta de uma deternimada seção no SPED, recebe-se também as permissões da respecitva conta do app PROCESSOS-REQUISITORIOS.
 
@@ -114,29 +125,32 @@ SALC
      - Validar
      - Invalidar
      - Comentar cobrando alterações e esperar a solução para em seguida validar
-7. O processo entra em __Pendências do FISCAL__
+7. Após a validade/invalidade, o processo passa a ser apenas assinável, deixando de ser editável (OBS I)
+8. O processo entra em __Pendências do FISCAL__
 
 FISCAL
 
-8. Revisa o processo
-9. Assina ou não, podendo comentar o motivo
-10. O processo entra em __Pendências do OD__
+9. Revisa o processo
+10. Assina ou não, podendo comentar o motivo
+11. O processo entra em __Pendências do OD__
 
 OD ou OD SUBSTITUO
 
-11. Revisa o processo
-12. Assina ou não, podendo comentar o motivo
+12. Revisa o processo
+13. Assina ou não, podendo comentar o motivo
 
 SALC
 
-13. Efetua o __empenho__
+14. Efetua o __empenho__
+
+(OBS I) Nada impede das assinaturas do FISCAL e do OD serem realizadas sem a devida validação da SALC, ou seja, com os documentos ainda com permissão de edição. A revisão do processo nestes casos perderia o sentido se os dados forem alteradas posteriormente a assinatura desses gestores, portanto, para reforçar o fluxo correto, todas as assinaturas são retiradas caso algum dado seja alterado.
 
 ## Documentos
 
 O conjunto de documentos necessários depende do modo da aquisição.
 
 1. Modo de aquisição por pregão em que a organização é **gerente ou participante**:
-    * _Parte Requisitória_: É a formalização da demanda, contem os objetivos da organização planejados em A-1, a origem e o valor do crédito, o tipo de empenho (ordinário ou estimativo) e um resumo do que será comprado;
+    * _Parte Requisitória_: É a formalização da demanda, contém os objetivos da organização planejados em A-1, a origem e o valor do crédito, o tipo de empenho (ordinário ou estimativo) e um resumo do que será comprado;
     * _Pedido_: Contém o detalhamento item a item do que será comprado. Dado o pregão e o item do mesmo, deve-se adequar as quantidades e valores dentro do crédito disponível, verificar a empresa, bem como se sua situação cadastral, fiscal e trabalhista permite empenho.
 2. Modo de aquisição por pregão em que a organização quer aderir (pegar **carona**) a um pregão existente de outro orgão:
     * _Parte Requisitória_;
@@ -170,23 +184,27 @@ A senha escolhida no lugar de *secret* no arquivo Dockerfile permite o acesso à
 
 Os arquivos importantes são:
 
-1. `private/appconfig.ini`: Atribui valores para personalização do frontend da plataforma, por exemplo:
-    * timbre_linha1 valor default MINISTÉRIO DA DEFESA
-    * timbre_linha2 valor default EXÉRCITO BRASILEIRO
-    * timbre_linha3 valor default DCT - DSG
-    * timbre_linha4 valor default 4º CENTRO DE GEOINFORMAÇÃO
-    * allowed_ext valor default txt,ini,md,json,geojson,png,jpg,jpeg,odt,ods,odp,doc,docx,xls,xlsx,ppt,pptx,pdf,zip,rar,tar,gzip,gz,7z
-    * conta_admin valor default Admin,1
-    * maxtotalfsize valor default 8000
-    * url_creditos_disponveis valor default #
-    * url_modelo_solicitacao_aceite valor default #
-    * url_modelo_solicitacao_orcamento valor default #
-    * url_modelo_comprovante_exclusividade valor default #
-2. `views/default/index.html`: Recebe os valores de personalização através de código python embeded como em `{{=configuration.get('app.url_modelo_solicitacao_orcamento','#')}}` e ainda valores processados pelo controlador
-3. `controllers/default.py`: processa as requisições e prepara as variáveis para a resposta.
-4. `models/db.py`: Faz o ligação com os bancos de dados e o serviço LDAP
+1. `private/appconfig.ini`: Atribui valores para personalização do frontend da plataforma com os dados que constam em todos os documentos, por exemplo:
+    * timbre_linha1 = MINISTÉRIO DA DEFESA
+    * timbre_linha2 = EXÉRCITO BRASILEIRO
+    * timbre_linha3 = DCT - DSG
+    * timbre_linha4 = 4º CENTRO DE GEOINFORMAÇÃO
+    * allowed_ext = txt,ini,md,json,geojson,png,jpg,jpeg,odt,ods,odp,doc,docx,xls,xlsx,ppt,pptx,pdf,zip,rar,tar,gzip,gz,7z
+    * conta_admin = Admin,1
+    * maxtotalfsize = 8000
+    * url_creditos_disponveis = #
+    * url_modelo_solicitacao_aceite = #
+    * url_modelo_solicitacao_orcamento = #
+    * url_modelo_comprovante_exclusividade = #
+2. `private/vars.json`: Atribui valores para personalização do frontend com os valores iniciais das variáveis dos documentos (que são alteradas pelos usuários requisitantes), por exemplo:
+    * "assunto": "Aquisição de material"
+    * "objetivo": "A PRESENTE AQUISIÇÃO DESTINA-SE AO CUMPRIMENTO DO OE4ºCGEO N° 04 - META 4.2 PROMOVER MELHORIAS NA INFRAESTRUTURA (INSTALAÇÕES, EQUIPAMENTOS E MATERIAIS) DA OM INCLUSIVE NA ÁREA DE TI"
+    * "qtnecessidade-justificativa": "1 item, resultando num quantitativo de 02 unidades de material técnico topográfico/cartográfico, todos expressos na Planilha de Necessidades e Mapa Comparativo de Preços, totalizando o valor de R$ 2.600,00 (dois mil e seiscentos reais)."
+3. `views/default/index.html`: Recebe os valores de personalização através de código python embeded como em `{{=configuration.get('app.url_modelo_solicitacao_orcamento','#')}}` e ainda valores processados pelo controlador
+4. `controllers/default.py`: processa as requisições e prepara as variáveis para a resposta.
+5. `models/db.py`: Faz o ligação com os bancos de dados e o serviço LDAP
 
-Em <https://localhost/appadmin/> edita-se as tabelas da aplicação. Para uma implementação ao lado de um SPED legado, é bloqueado e não é seguro editar as tabelas listadas com o prefixo **dbpgsped** pois corre-se o risco de quebrar a lógica do Sistema SPED, caso contrário, a edição destas tabelas por este método é simplesmente necessária, para criar seções, contas (usuários), pessoas (que fazem o login e possuem entrada no LDAP), usuario_pessoa (ligação entre pessoas e suas contas) e usuario_secao (ligação entre as contas e as seções).
+Em <https://localhost/appadmin/> edita-se as tabelas da aplicação. Para uma implementação ao lado de um SPED, é bloqueado e não é seguro editar as tabelas listadas com o prefixo **dbpgsped** pois corre-se o risco de quebrar a lógica do Sistema legado, caso contrário, a edição destas tabelas por este método é desbloqueada e simplesmente necessária para criar seções, contas (usuários), pessoas (que fazem o login e possuem entrada no LDAP), usuario_pessoa (ligação entre pessoas e suas contas) e usuario_secao (ligação entre as contas e as seções).
 
 ## Migração para SPED
 

@@ -1,6 +1,13 @@
 {
-    "latest":"0.9.6",
+    "latest":"0.10.7",
     "versions":{
+        "0.10.7":{
+            "modified_date":"2022-10-08",
+            "description":"Melhorias e correção de BUGs em Exportar para .odt",
+            "add":[],
+            "change":["Enter nos campos de edição aciona Submit"],
+            "bug_fix":["Correção de bugs de codificação em UTF-8 ao exportar para .odt"]
+        },
         "0.9.6":{
             "modified_date":"2022-10-07",
             "description":"Melhorias na segurança e versionamento.",

@@ -4563,6 +4563,28 @@ $('[id^=gerpar][id$=popover]').on('show.bs.modal', function (e) {
             document.getElementById("botao_ajax_assinar").click();
         }
     });
+    $("textarea").keydown(function(e){
+        // Enter was pressed without shift key
+        if (e.keyCode == 13 && !e.shiftKey) {
+            // prevent default behavior
+            e.preventDefault();
+        }
+    });
+    // Enter no campo de novo processo = clicar em submit:
+    document.getElementById("resumo").addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        if (event.keyCode === 13) {
+            ajax_novo();
+        }
+    });
+    // Enter nos campos da edição da variáveis = clicar em submit:
+    document.querySelectorAll(".popover-body").forEach(p => p.addEventListener("keyup", function(event) {
+        // Number 13 is the "Enter" key on the keyboard
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            p.nextElementSibling.lastElementChild.click();
+        }
+    }));
 </script>
 <script>
 {{if rows:}}

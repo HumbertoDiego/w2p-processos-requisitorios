@@ -18,7 +18,8 @@
             {{pass}}
             {{modo=dados["modo"] if "modo" in dados else "gerente"}}
             {{lista_desejados=["data","modo","remetente","beneficios-justificativa"]}}
-            {{for k,v in dados.items():}}
+            {{dados_copy = dados.copy()}}
+            {{for k,v in dados_copy.items():}}
                 {{if k in lista_desejados:}}
                     {{show[k.upper().replace("_"," ")] = dados.pop(k)}}
                 {{elif "ass_" in k and "edited" not in k and modo in k:}}

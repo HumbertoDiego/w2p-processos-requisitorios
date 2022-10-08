@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
-import utils, json,re
+import utils, json, re
+from urllib.parse import unquote
 ############################################### Funções de apoio ##########################################
 ########## Suscetível a IP Spoofing #############
+# Caso queira permitir acesso por hosts apenas de uma subrede, edite esta função e use-a como decorator
 def check_subnet_ip(callee):
     def wrapper():
-        lista_ips_adm = []#"10.78.96.78"] #10.78.96.78 IP de VPN
-        lista_ips_adm.append("10.79.8.9")
+        lista_ips_adm = []
         for i in range(2,255):
             lista_ips_adm.append("10.78.4."+str(i))
-            lista_ips_adm.append("10.79.11."+str(i))
-            lista_ips_adm.append("10.79.10."+str(i))
         if str(request.client) not in lista_ips_adm:
             raise HTTP(404)
         else:
             return callee()
     return wrapper
+
 # /requisicoes/default/getanos?secao=S3
 def getanos():
     if request.vars.secao:
@@ -80,7 +80,7 @@ def getodt():
     def teste_encoding(a):
         if hasattr(a, 'decode'): return a.decode("utf-8")
         else: return a
-    processo = request.vars.processo if request.vars.processo else ''
+    processo = unquote(request.vars.processo) if request.vars.processo else ''
     row = dbpg(dbpg.processo_requisitorio.secao_ano_nr==processo).select().first()
     variavies = {}
     if row:
@@ -111,24 +111,22 @@ def getodt():
                         varsjson["ass_"+quem+"_"+doc+"_"+modo] = ""
         varsjson['hash']=str(CRYPT(digest_alg="sha256",salt="")(row['dados'])[0])
         try:
-            varsjson['secao']=processo.split("_")[0].decode('utf-8')
+            varsjson['secao']=processo.split("_")[0]
             varsjson['ano']=processo.split("_")[1]
             varsjson['nr']=processo.split("_")[2]
         except:
             raise HTTP(400)
         varsjson['dataextenso']= varsjson["data"].split("/")[0] + " de " + meses[int(varsjson["data"].split("/")[1])-1]
         varsjson['dataresumidalower']= teste_encoding(varsjson["data"].split("/")[0]+" "+mes_abr[int(varsjson["data"].split("/")[1])-1])
-        varsjson['dataresumidalower']= varsjson['dataresumidalower'].decode('utf-8')
-        varsjson['cidadeestado'] = configuration.get('app.omcidade').decode('utf-8')+"/"+configuration.get('app.omestadoabrev').decode('utf-8')#"Manaus"+"/"+"AM".decode('utf-8') ##
-        varsjson['omextenso'] = configuration.get('app.omextenso').decode('utf-8').upper() #"4º CENTRO DE GEOINFORMAÇÃO".decode('utf-8')#
-        varsjson['omabrev'] = configuration.get('app.omabrev').decode('utf-8') #"4º CGEO".decode('utf-8')#
-        varsjson['omendereco'] = ", ".join([k.decode('utf-8') for k in configuration.get('app.omendereco')]) #"Avenida Marechal Bittencourt, nº 97, bairro Santo Antônio, CEP – 69029-160, em Manaus/AM".decode('utf-8')#
-        varsjson['omsup'] = configuration.get('app.omsup').decode('utf-8') #"DCT - DSG".decode('utf-8')#
+        varsjson['dataresumidalower']= varsjson['dataresumidalower']
+        varsjson['cidadeestado'] = configuration.get('app.orgcidade')+"/"+configuration.get('app.orgestadoabrev')#"Manaus"+"/"+"AM" ##
+        varsjson['omextenso'] = configuration.get('app.orgextenso').upper() #"4º CENTRO DE GEOINFORMAÇÃO"#
+        varsjson['omabrev'] = configuration.get('app.orgabrev') #"4º CGEO"#
+        varsjson['omendereco'] = ", ".join([k for k in configuration.get('app.orgendereco')]) #"Avenida Marechal Bittencourt, nº 97, bairro Santo Antônio, CEP – 69029-160, em Manaus/AM"#
+        varsjson['timbre_linha1'] = configuration.get('app.timbre_linha1') #"MINISTÉRIO DA DEFESA"#
+        varsjson['timbre_linha2'] = configuration.get('app.timbre_linha2') #"EXÉRCITO BRASILEIRO"#
+        varsjson['omsup'] = configuration.get('app.timbre_linha3') #"DCT - DSG"#
         varsjson['objs'] = []
-        ####### Alterado apra evitar RuntimeError: dictionary changed size during iteration
-        #for k,v in varsjson.items():
-        #    if "_edited" in k: varsjson.pop(k)
-        #######
         cp = varsjson.copy()
         for k in cp:
             if "_edited" in k: varsjson.pop(k)
@@ -162,11 +160,11 @@ def getodt():
                     })
         modelo = "" if varsjson['modo']=="gerente" else "_dispensa" if varsjson['modo']=="dispensa" else "_anul" if varsjson['modo']=="anul" else "_carona"
         varsjson['aquisicaopor'] = dicmodos.get(varsjson['modo'],"Gerente") if varsjson['modo']!="gerente" else u"Pregão "+varsjson['gerpar']
-        ## Sol "'ascii' codec can't decode byte 0xc3 in position 9: ordinal not in range(128)"
+        ## SolUÇÃO para: "'ascii' codec can't decode byte 0xc3 in position 9: ordinal not in range(128)"
         # varsjson["key"] = teste_encoding(varsjson["key"])
         filename2=os.path.join(request.folder,'static','modelos','pr'+modelo+'_model.odt')
         basic = Template(source='', filepath=filename2)
-        bufferimg = StringIO.StringIO()
+        bufferimg = BytesIO()
         bufferimg.write(basic.generate(o=varsjson).render().getvalue())
         bufferimg.seek(0)
         return response.stream(bufferimg,filename="PR_"+processo+".odt",attachment=True)
@@ -416,7 +414,6 @@ def api():
         for key, value in dic.items():
             if key in vars: dic.update({key:True if (vars[key] == "1" or vars[key] == "true") else False})
         #clean data
-        from urllib.parse import unquote
         vars['processo'] = unquote(vars.get('processo',""))
         allowed = list(ALLOWED)
         if dic['novo']:
