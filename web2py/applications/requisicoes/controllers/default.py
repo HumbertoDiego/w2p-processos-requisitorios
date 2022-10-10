@@ -193,7 +193,7 @@ def index():
     editavel = True if secao in secoesdesteuser else False
     # Validação dos niveis de autorização para este user
     is_salc,is_fiscal,is_od,is_admin,is_odsubstituto = getPrivs()
-    rows = dbpg(dbpg.processo_requisitorio.secao_ano_nr.contains(secao+"_"+ano)).select(orderby=~dbpg.processo_requisitorio.secao_ano_nr)
+    rows = dbpg(dbpg.processo_requisitorio.secao_ano_nr.contains(secao+"_"+ano)).select(orderby=~dbpg.processo_requisitorio.id)
     nr="01" if not rows else nr
     if not rows:# nenhum lançamento ainda
         hashed = ""
@@ -222,9 +222,9 @@ def pedencias():
     is_salc,is_fiscal,is_od,is_admin,is_odsubstituto = getPrivs()
     q = request.vars.q if request.vars.q else redirect(URL('default', 'pedencias', args=[quem],vars=dict(q=request.now.strftime('%Y'))))
     if quem in ["fiscal", "od"]:
-        rows = dbpg((dbpg.processo_requisitorio.valido==True) & (dbpg.processo_requisitorio.secao_ano_nr.contains(q)) ).select(orderby='secao_ano_nr')
+        rows = dbpg((dbpg.processo_requisitorio.valido==True) & (dbpg.processo_requisitorio.secao_ano_nr.contains(q)) ).select(orderby='id')
     elif quem in ["requisitante","salc"]:
-        rows = dbpg((dbpg.processo_requisitorio.valido==None) & (dbpg.processo_requisitorio.secao_ano_nr.contains(q)) ).select(orderby='secao_ano_nr')
+        rows = dbpg((dbpg.processo_requisitorio.valido==None) & (dbpg.processo_requisitorio.secao_ano_nr.contains(q)) ).select(orderby='id')
     else:
         rows = []
     # Checagem das assinaturas dessas rows
@@ -429,7 +429,7 @@ def api():
                 if secao not in groups:
                     raise HTTP(403)
                 else:
-                    last = dbpg(dbpg.processo_requisitorio.secao_ano_nr.like(secao+'_'+ano+'%')).select(orderby='secao_ano_nr').last()
+                    last = dbpg(dbpg.processo_requisitorio.secao_ano_nr.like(secao+'_'+ano+'%')).select(orderby='id').last()
                     nr = "%02d"%(int(last.secao_ano_nr.split("_")[-1])+1) if last else "01"
                     dbpg.processo_requisitorio.insert( secao_ano_nr=secao+'_'+ano+'_'+nr, resumo=resumo ,dados=response.json({"data":request.now.strftime('%d/%m/%Y'),"modo":"gerente"}))
                     dic['nr']=nr
@@ -732,7 +732,7 @@ def api():
                 raise HTTP(403)
             # montagem dos dados a serem inseridos
             try:
-                last = dbpg(dbpg.processo_requisitorio.secao_ano_nr.like(secao+'_'+ano+'%')).select(orderby='secao_ano_nr').last()
+                last = dbpg(dbpg.processo_requisitorio.secao_ano_nr.like(secao+'_'+ano+'%')).select(orderby='id').last()
                 nr = "%02d"%(int(last.secao_ano_nr.split("_")[-1])+1) if last else "01"
                 dados["data"]=request.now.strftime('%d/%m/%Y')
                 #1) Acabar com todas as assinaturas
