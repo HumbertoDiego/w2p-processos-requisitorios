@@ -24,8 +24,6 @@ services:
     container_name: post
     networks:
       - overlay
-    ports:
-      - 5432:5432
     volumes:
       - ./docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
       - post-data:/var/lib/postgresql/data
@@ -54,6 +52,7 @@ services:
       - 6443:443
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: ldap
+    restart: always
 volumes:
   post-data:
   ldap-data:
