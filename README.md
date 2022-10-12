@@ -208,7 +208,19 @@ Em <https://localhost/appadmin/> edita-se as tabelas da aplicação. Para uma im
 
 ## Migração para SPED
 
+Antes deve-se criar um usuário somente leitura no banco do SPED:
+
+```
+docker-compose exec post bash -c "su postgres -c 'psql'"
+postgres=# CREATE USER <USERNAME> WITH PASSWORD '<PASSWORD>';
+postgres=# GRANT CONNECT ON DATABASE speddb TO <USERNAME>;
+postgres=# GRANT USAGE ON SCHEMA public TO <USERNAME>;
+postgres=# GRANT SELECT ON ALL TABLES IN SCHEMA public TO <USERNAME>;
+postgres=# GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO <USERNAME>;
+```
+
 Para ligar a um serviço LDAP e a tabelas necessárias de um Sitema SPED é necessário adicionar a URI e o HOST em `private/appconfig.ini`:
+
 ```
 ...
 [sped]  
