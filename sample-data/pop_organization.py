@@ -1,7 +1,7 @@
 import sys, psycopg2
 def pop(**kargs):
     print(user,senha)
-    con = psycopg2.connect("dbname=authdb user=%s password=%s"%(user,senha))
+    con = psycopg2.connect("host=post dbname=authdb user=%s password=%s"%(user,senha))
     cur = con.cursor()
 
     cur.execute("INSERT INTO secao (nm_sigla, in_excluido) VALUES (%s,%s) RETURNING id_secao;", ("Chefia","n"))
