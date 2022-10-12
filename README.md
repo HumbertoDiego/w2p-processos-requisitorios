@@ -82,7 +82,7 @@ Navegar para o app PROCESSOS-REQUISITORIOS em _<https://localhost/>_ (ou pelo IP
 Em __Novo Processo__, crie o 1º processo. Tente alterar as variáveis dos documentos ou assiná-los. Note que as permissões não são atreladas à pessoa que fez o login e sim às contas que ele possui.
 
 1. As permissões para o usuário NÃO logado são:
-    - Ver os processos, inclusive de outras seções e expotá-los para .odt
+    - Ver os processos, inclusive de outras seções e exportá-los para .odt
     - Em __Ações__: Ver os Comentários
 2. Adicionalmente, as permissões para o usuário logado são:
     - Em __Ações__: Comentar e clonar o processo para sua seção
@@ -99,7 +99,7 @@ Em __Novo Processo__, crie o 1º processo. Tente alterar as variáveis dos docum
     - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que lista para documentos validados que faltas essas assinaturas
 5. Adicionalmente, as permissões para o usuário logado e com perfil de Fiscal Administrativo ou Ordenador de Despesas ou Ordenador de Despesas Substituto:
     - Assinar nos campos do fiscal ou do OD
-    - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que direcionam para docuemntos validados que faltas essas assinaturas
+    - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que direcionam para documentos validados que faltas essas assinaturas
 6. Adicionalmente, as permissões para o usuário logado e com perfil de conta_admin:
     - As mesmas do perfil de SALC
 
