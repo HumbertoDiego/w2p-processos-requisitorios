@@ -18,7 +18,7 @@ def pop(**kargs):
     con.commit()
     print(id_secao,id_pessoa,id_usuario)
     
-    con2 = psycopg2.connect("dbname=requisicoes user=%s password=%s"%(user,senha))
+    con2 = psycopg2.connect("host=post dbname=requisicoes user=%s password=%s"%(user,senha))
     cur2 = con2.cursor()
     cur2.execute("INSERT INTO configuracoes (contas_salc,conta_fiscal,conta_od) VALUES (%s,%s,%s)", ([id_usuario],id_usuario,id_usuario))
     con2.commit()
