@@ -16,7 +16,7 @@ App para montagem de processos requisitórios para subsidiar o empenho para aqui
     apt install docker-compose
     ```
 * Sistema SPED (opcional):
-  * O Sistema de Protocolo Eletrônico de Documentos ( [SPED](https://softwarepublico.gov.br/social/sped "SPED") ) é um software público de protocolos de documenntos concebido em 2008 e aperfeiçoado desde então. Visa a digitalização do trâmite de documentos internamente a uma organização. Nele é implementado a aplicação em conjunto com um servidor **LDAP** e um banco **PostgreSQL**.
+  * O Sistema de Protocolo Eletrônico de Documentos ( [SPED](https://softwarepublico.gov.br/social/sped "SPED") ) é um software público de protocolos de documentos concebido em 2008 e aperfeiçoado desde então. Visa a digitalização do trâmite de documentos internamente a uma organização. Nele é implementado a aplicação em conjunto com um servidor **LDAP** e um banco **PostgreSQL**.
   * O app PROCESSOS-REQUISITORIOS acompanha um banco em postgres:12-alpine, um serviço LDAP da imagem docker osixia/openldap:1.5.0 e um serviço LDAPADMIN da imagem docker osixia/phpldapadmin:0.9.0. Olhe a seção __Migração para SPED__ para aproveitar o sistema LDAP e Banco legado de sua organização.
 
 ## Objetivos 
@@ -211,7 +211,7 @@ Em <https://localhost/appadmin/> edita-se as tabelas da aplicação. Para uma im
 Antes deve-se criar um usuário somente leitura no banco do SPED:
 
 ```
-docker-compose exec post bash -c "su postgres -c 'psql'"
+root@sped-VM:~# su postgres -c 'psql'
 postgres=# CREATE USER <USERNAME> WITH PASSWORD '<PASSWORD>';
 postgres=# GRANT CONNECT ON DATABASE speddb TO <USERNAME>;
 postgres=# GRANT USAGE ON SCHEMA public TO <USERNAME>;
