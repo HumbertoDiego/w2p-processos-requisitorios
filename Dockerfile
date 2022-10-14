@@ -21,6 +21,7 @@ COPY default.conf /etc/apache2/sites-available/default.conf
 RUN a2dissite 000-default.conf \
     && a2ensite default.conf
 COPY web2py .
+COPY sample-data ./sample-data
 RUN python -c "from gluon.main import save_password; save_password('secret',443)"
 RUN chown -R www-data. .
 RUN /etc/init.d/apache2 restart
