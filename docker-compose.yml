@@ -28,6 +28,7 @@ services:
       - ./docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
       - post-data:/var/lib/postgresql/data
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       POSTGRES_MULTIPLE_DATABASES: requisicoes,authdb
     restart: always
