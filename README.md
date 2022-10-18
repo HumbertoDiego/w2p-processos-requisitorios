@@ -22,16 +22,16 @@ App para montagem de processos requisitórios para subsidiar o empenho para aqui
 ## Objetivos 
 
 1. Promover a integração entre as seções demandadoras de compras e a seção de aquisição;
-2. Diminuir a perda de eficiência diante de rodízio de pessoal
-3. Promover a digitalização do trâmite de documentos internos de uma organização
-4. Melhorar a eficiênica na gestão do recurso público  
+2. Diminuir a perda de eficiência diante de rodízio de pessoal;
+3. Promover a digitalização do trâmite de documentos internos de uma organização; e
+4. Melhorar a eficiênica na gestão do recurso público.
 
 ## Funcionalidades
  
 1. Preenchimento de documentos de forma colaborativa;
 2. Manter uma memória de processos de compras que resultaram ou não numa aquisição;
 3. Assinatura de documentos via autenticação LDAP;
-4. Comentários dentro dos processos para informar a situação ou exigênicas a serem sanadas para andamento do processo;
+4. Comentários dentro dos processos para informar a situação ou exigênicas a serem sanadas para andamento do processo; e
 5. Exportar cada documento pra .odt, para manter operante modos tradicionais (imprimir-assinar-escanear) durante o periodo de transição para a digitalização total. 
 
 ## Instalação

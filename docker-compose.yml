@@ -51,7 +51,7 @@ services:
     networks:
       - overlay
     ports:
-      - 6443:443
+      - 6444:443
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: ldap
 volumes:
