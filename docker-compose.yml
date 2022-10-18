@@ -50,7 +50,7 @@ services:
     networks:
       - overlay
     ports:
-      - 6444:443
+      - 6443:443
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: ldap
     restart: always

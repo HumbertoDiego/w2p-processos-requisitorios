@@ -45,7 +45,12 @@ App para montagem de processos requisitórios para subsidiar o empenho para aqui
 
 `docker-compose up -d`
 
-
+  - CASO ERRO em Windows: _docker: Error response from daemon: Ports are not available: exposing port TCP 0.0.0.0:6443 -> 0.0.0.0:0: listen tcp 0.0.0.0:6443: bind: An attempt was made to access a socket in a way forbidden by its access permissions._
+  ```
+    PS C:\WINDOWS\system32> net stop winnat
+    PS C:\WINDOWS\system32> net start winnat                                        
+  ```
+  
 ## Teste
 
 ```
