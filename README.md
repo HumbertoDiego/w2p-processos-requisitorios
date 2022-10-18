@@ -16,7 +16,7 @@ App para montagem de processos requisitórios para subsidiar o empenho para aqui
     apt install docker-compose
     ```
 * Sistema SPED (opcional):
-  * O Sistema de Protocolo Eletrônico de Documentos ( [SPED](https://softwarepublico.gov.br/social/sped "SPED") ) é um software público de protocolos de documenntos concebido em 2008 e aperfeiçoado desde então. Visa a digitalização do trâmite de documentos internamente a uma organização. Nele é implementado a aplicação em conjunto com um servidor **LDAP** e um banco **PostgreSQL**.
+  * O Sistema de Protocolo Eletrônico de Documentos ( [SPED](https://softwarepublico.gov.br/social/sped "SPED") ) é um software público de protocolos de documentos concebido em 2008 e aperfeiçoado desde então. Visa a digitalização do trâmite de documentos internamente a uma organização. Nele é implementado a aplicação em conjunto com um servidor **LDAP** e um banco **PostgreSQL**.
   * O app PROCESSOS-REQUISITORIOS acompanha um banco em postgres:12-alpine, um serviço LDAP da imagem docker osixia/openldap:1.5.0 e um serviço LDAPADMIN da imagem docker osixia/phpldapadmin:0.9.0. Olhe a seção __Migração para SPED__ para aproveitar o sistema LDAP e Banco legado de sua organização.
 
 ## Objetivos 
@@ -61,7 +61,7 @@ docker-compose exec phpldapadmin service apache2 status
 
 Para criar um usuário administrador chamado (capfoo) em uma seção, execute apenas uma vez:
 
-`python ./sample-data/pop_organization.py <POST_USER> <POST_PASSWORD>`
+`docker-compose exec prs python ./sample-data/pop_organization.py <POST_USER> <POST_PASSWORD>`
 
 Navegar para o PHPLDAPADMIN em _<https://localhost:6443/>_ (ou pelo IP da máquina onde o docker está instalado) para criar o usuário _capfoo_, em login:
   - Login DN: cn=admin,dc=eb,dc=mil,dc=br # de acordo com LDAP_DOMAIN em docker-compose.yml
@@ -82,7 +82,7 @@ Navegar para o app PROCESSOS-REQUISITORIOS em _<https://localhost/>_ (ou pelo IP
 Em __Novo Processo__, crie o 1º processo. Tente alterar as variáveis dos documentos ou assiná-los. Note que as permissões não são atreladas à pessoa que fez o login e sim às contas que ele possui.
 
 1. As permissões para o usuário NÃO logado são:
-    - Ver os processos, inclusive de outras seções e expotá-los para .odt
+    - Ver os processos, inclusive de outras seções e exportá-los para .odt
     - Em __Ações__: Ver os Comentários
 2. Adicionalmente, as permissões para o usuário logado são:
     - Em __Ações__: Comentar e clonar o processo para sua seção
@@ -99,7 +99,7 @@ Em __Novo Processo__, crie o 1º processo. Tente alterar as variáveis dos docum
     - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que lista para documentos validados que faltas essas assinaturas
 5. Adicionalmente, as permissões para o usuário logado e com perfil de Fiscal Administrativo ou Ordenador de Despesas ou Ordenador de Despesas Substituto:
     - Assinar nos campos do fiscal ou do OD
-    - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que direcionam para docuemntos validados que faltas essas assinaturas
+    - No Dropdown do nome do usuário, atalho para __Pendências do Fiscal__ e __Pendências do OD__ que direcionam para documentos validados que faltas essas assinaturas
 6. Adicionalmente, as permissões para o usuário logado e com perfil de conta_admin:
     - As mesmas do perfil de SALC
 
@@ -208,7 +208,19 @@ Em <https://localhost/appadmin/> edita-se as tabelas da aplicação. Para uma im
 
 ## Migração para SPED
 
+Antes deve-se criar um usuário somente leitura no banco do SPED:
+
+```
+root@sped-VM:~# su postgres -c 'psql'
+postgres=# CREATE USER <USERNAME> WITH PASSWORD '<PASSWORD>';
+postgres=# GRANT CONNECT ON DATABASE speddb TO <USERNAME>;
+postgres=# GRANT USAGE ON SCHEMA public TO <USERNAME>;
+postgres=# GRANT SELECT ON ALL TABLES IN SCHEMA public TO <USERNAME>;
+postgres=# GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO <USERNAME>;
+```
+
 Para ligar a um serviço LDAP e a tabelas necessárias de um Sitema SPED é necessário adicionar a URI e o HOST em `private/appconfig.ini`:
+
 ```
 ...
 [sped]  

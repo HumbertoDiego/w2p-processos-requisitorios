@@ -24,12 +24,11 @@ services:
     container_name: post
     networks:
       - overlay
-    ports:
-      - 5432:5432
     volumes:
       - ./docker-postgresql-multiple-databases:/docker-entrypoint-initdb.d
       - post-data:/var/lib/postgresql/data
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: secret
       POSTGRES_MULTIPLE_DATABASES: requisicoes,authdb
     restart: always
@@ -54,6 +53,7 @@ services:
       - 6444:443
     environment:
       PHPLDAPADMIN_LDAP_HOSTS: ldap
+    restart: always
 volumes:
   post-data:
   ldap-data:
