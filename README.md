@@ -1,6 +1,8 @@
 # w2p-processos-requisitorios
 App para montagem de processos requisitórios para subsidiar o empenho para aquisição de bens ou serviços via pregão gerente/participante, adesão à pregão, dispensa de licitação e/ou inexigibilidade. 
 
+DESCONTINUADO. Migrado para Django em [https://github.com/HumbertoDiego/django-processos-requisitorios](https://github.com/HumbertoDiego/django-processos-requisitorios)
+
 <img src="imgs/inicio.jpg" alt="home"/>
 
 ## Requisitos
@@ -205,7 +207,7 @@ Os arquivos importantes são:
     * "assunto": "Aquisição de material"
     * "objetivo": "A PRESENTE AQUISIÇÃO DESTINA-SE AO CUMPRIMENTO DO OE4ºCGEO N° 04 - META 4.2 PROMOVER MELHORIAS NA INFRAESTRUTURA (INSTALAÇÕES, EQUIPAMENTOS E MATERIAIS) DA OM INCLUSIVE NA ÁREA DE TI"
     * "qtnecessidade-justificativa": "1 item, resultando num quantitativo de 02 unidades de material técnico topográfico/cartográfico, todos expressos na Planilha de Necessidades e Mapa Comparativo de Preços, totalizando o valor de R$ 2.600,00 (dois mil e seiscentos reais)."
-3. `views/default/index.html`: Recebe os valores de personalização através de código python embeded como em `{{=configuration.get('app.url_modelo_solicitacao_orcamento','#')}}` e ainda valores processados pelo controlador
+3. `views/default/index.html`: Recebe os valores de personalização através de código python embedded como em `{{=configuration.get('app.url_modelo_solicitacao_orcamento','#')}}` e ainda valores processados pelo controlador
 4. `controllers/default.py`: processa as requisições e prepara as variáveis para a resposta.
 5. `models/db.py`: Faz o ligação com os bancos de dados e o serviço LDAP
 

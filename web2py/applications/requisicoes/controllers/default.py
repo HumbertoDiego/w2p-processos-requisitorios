@@ -82,7 +82,6 @@ def getodt():
         else: return a
     processo = unquote(request.vars.processo) if request.vars.processo else ''
     row = dbpg(dbpg.processo_requisitorio.secao_ano_nr==processo).select().first()
-    variavies = {}
     if row:
         try:
             dados = json.loads(row.dados)
@@ -95,9 +94,8 @@ def getodt():
             #return response.json({"vars":row.dados,"erro":str(e)+str(e.args)})
     else: raise HTTP(400)
     try:
-        import StringIO
         from relatorio.templates.opendocument import Template
-        from io import open
+        from io import open, BytesIO
         meses = [u"Janeiro", u"Fevereiro", u"Março", u"Abril", u"Maio", u"Junho", u"Julho", u"Agosto", u"Setembro" , u"Outubro", u"Novembro", u"Dezembro"]
         mes_abr = [m[:3] for m in meses]
         fbase = open(os.path.join(request.folder,'private','vars.json'),'r', encoding="utf-8").read()

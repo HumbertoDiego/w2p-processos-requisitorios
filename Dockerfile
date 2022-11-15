@@ -4,6 +4,8 @@
 FROM python:3.7-slim-buster
 WORKDIR /home/www-data/web2py
 RUN apt update
+RUN apt update
+RUN apt update
 RUN apt -y install apache2 libapache2-mod-wsgi-py3 nano libldap2-dev libsasl2-dev gcc
 RUN a2enmod ssl \
     && a2enmod proxy \
@@ -29,4 +31,3 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 443
 CMD ["apache2ctl", "-D", "FOREGROUND"]
-#CMD ["python", "web2py.py", "-a", "secret", "--interfaces=0.0.0.0:80" ]

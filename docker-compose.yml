@@ -2,7 +2,9 @@ version: "3.3"
 
 services:
   prs:
-    build: .
+    build:
+      context: .
+      network: host
     depends_on:
       - post
     networks:

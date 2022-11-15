@@ -1,8 +1,6 @@
 #!/bin/bash
-
 set -e
 set -u
-
 function create_user_and_database() {
 	local database=$1
 	echo "  Creating user and database '$database'"
