@@ -288,7 +288,12 @@ def profile():
     del pessoa['cd_patente']
     contas = {}
     for usuario in usuarios:
-        s = dbpgsped(dbpgsped.usuario_secao.id_usuario==usuarios[usuario]['id_usuario']).select().first().id_secao
+        try:
+            s = dbpgsped.usuario_secao(usuarios[usuario]['id_usuario']).id_secao
+        except:
+            # Alguma caixa que não possui seção...
+            contas[usuarios[usuario]['nm_usuario']] = "Sem seção"
+            continue
         sr = dbpgsped.secao(s).as_dict()
         contas[usuarios[usuario]['nm_usuario']] = "Seção: "+sr['nm_sigla']
     return dict(perfil={'Contas':contas, 'Pessoa':pessoa, 'Privilégios':{"Admin":admin,"OD":od,"Fiscal":fiscal,"Salc":salc,"OD Substituto":odsubstituto}},
